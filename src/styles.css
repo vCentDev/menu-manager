@@ -2,4 +2,54 @@
 
 body {
   background-color: var(--p-surface-50);
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/** TYPOGRAPHY */
+
+/* dm-sans-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/dm-sans-v17-latin-regular.woff2") format("woff2");
+}
+/* dm-sans-500 - latin */
+@font-face {
+  font-display: swap;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/dm-sans-v17-latin-500.woff2") format("woff2");
+}
+
+/* playfair-display-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/playfair-display-v40-latin-regular.woff2") format("woff2");
+}
+/* playfair-display-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/playfair-display-v40-latin-700.woff2") format("woff2");
+}
+/* dm-mono-regular - latin */
+/*? Para los precios de la carta  */
+@font-face {
+  font-display: swap;
+  font-family: "DM Mono", monospace;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/dm-mono-v16-latin-regular.woff2");
 }
