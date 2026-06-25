@@ -35,7 +35,7 @@ export interface LocalizedDish {
   description?: string;
   priceCents: number;
   allergens: Allergen[];
-  imgeUrl: string;
+  imageUrl?: string;
 }
 
 export interface LocalizedSection {
@@ -50,4 +50,4 @@ export interface SectionNode {
   children: SectionNode[];
 }
 
-export type orderCriteria = 'default' | 'price-asc' | 'price-desc';
+export type OrderCriteria = 'default' | 'price-asc' | 'price-desc';
