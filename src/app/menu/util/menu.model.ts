@@ -31,11 +31,14 @@ export interface Section {
 
 export interface LocalizedDish {
   id: string;
+  sectionId: string;
   name: string;
   description?: string;
   priceCents: number;
-  allergens: Allergen[];
+  isAvailable: boolean;
+  displayOrder: number;
   imageUrl?: string;
+  allergens: Allergen[];
 }
 
 export interface LocalizedSection {

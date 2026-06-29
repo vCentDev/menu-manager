@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
     console.log('dishes', this.menuService.dishes());
     console.log('sections', this.menuService.sections());
 
-    console.log('Visible Dishes', this.menuService.visibleDishes());
+    this.languageService.changeLanguage('es');
+
+    console.log('Render Menu', this.menuService.menuTree());
   }
 }

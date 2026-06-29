@@ -1,7 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { LanguageService } from '../../shared/api';
 import { MenuClient } from './menu.client';
 import { Dish, OrderCriteria, Section } from '../util/menu.model';
+import { localizeDish } from '../util/menu-localization';
+import { matchesSearch } from '../util/normalize-text';
+import { buildMenuTree } from '../util/menu-tree';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +19,31 @@ export class MenuService {
   readonly dishes = this._dishes.asReadonly();
   private readonly _sections = signal<Section[]>([]);
   readonly sections = this._sections.asReadonly();
+  readonly localizedDishes = computed(() =>
+    this._dishes().map((dish) =>
+      localizeDish(dish, this.languageService.lang()),
+    ),
+  );
+  readonly visibleDishes = computed(() => {
+    return this.localizedDishes()
+      .filter((dish) => dish.isAvailable)
+      .filter(
+        (dish) =>
+          !dish.allergens.some((allergen) =>
+            this._excludedAllergenCodes().has(allergen.code),
+          ),
+      )
+      .filter((dish) => matchesSearch(dish, this.searchQuery()));
+  });
+
+  readonly menuTree = computed(() =>
+    buildMenuTree(
+      this.sections(),
+      this.visibleDishes(),
+      this.languageService.lang(),
+      this.sortCriteria(),
+    ),
+  );
 
   // Load state
   private readonly _status = signal<'idle' | 'loading' | 'ready' | 'error'>(
