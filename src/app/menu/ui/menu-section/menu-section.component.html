@@ -1,0 +1,30 @@
+<div
+  class="section"
+  [class.subsection]="level() > 0"
+  [style.padding-left.px]="level() * 16"
+>
+  @switch (level()) {
+    @case (0) {
+      <h2>{{ node().section.name }}</h2>
+    }
+    @case (1) {
+      <h3>{{ node().section.name }}</h3>
+    }
+    @case (2) {
+      <h4>{{ node().section.name }}</h4>
+    }
+    @default {
+      <h4>{{ node().section.name }}</h4>
+    }
+  }
+
+  <div class="dish-list">
+    @for (dish of node().dishes; track dish.id) {
+      <app-dish-card [dish]="dish" [lang]="lang()" />
+    }
+  </div>
+
+  @for (child of node().children; track child.section.id) {
+    <app-menu-section [node]="child" [level]="level() + 1" [lang]="lang()" />
+  }
+</div>

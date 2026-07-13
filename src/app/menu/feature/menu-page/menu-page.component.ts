@@ -5,8 +5,8 @@ import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 
 import { MenuService } from '@menu/data/menu.service';
-import { DishCardComponent } from '../../ui/dish-card/dish-card.component';
 import { LanguageService } from '@app/shared/api';
+import { MenuSectionComponent } from '@app/menu/ui/menu-section/menu-section.component';
 
 @Component({
   selector: 'app-menu-page',
@@ -14,7 +14,7 @@ import { LanguageService } from '@app/shared/api';
     ProgressSpinnerModule,
     MessageModule,
     ButtonModule,
-    DishCardComponent,
+    MenuSectionComponent,
   ],
   templateUrl: './menu-page.component.html',
   styleUrl: './menu-page.component.css',

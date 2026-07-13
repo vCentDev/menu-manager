@@ -8,7 +8,9 @@
   }}</p-message>
   <button (click)="menuService.load()" pButton>Retry</button>
 } @else if (menuService.status() === "ready") {
-  @for (dish of menuService.visibleDishes().slice(0, 3); track dish.id) {
-    <app-dish-card [dish]="dish" [lang]="langService.lang()" />
+  @for (node of menuService.menuTree(); track node.section.id) {
+    <app-menu-section [node]="node" [lang]="langService.lang()" />
+  } @empty {
+    <p>No hay platos disponibles para mostrar.</p>
   }
 }

@@ -1,0 +1,13 @@
+.section {
+  margin-bottom: 2rem;
+}
+
+.subsection {
+  margin-top: 1rem;
+}
+
+.dish-list app-dish-card {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
