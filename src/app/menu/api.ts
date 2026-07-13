@@ -5,3 +5,5 @@ export type {
   LocalizedSection,
   OrderCriteria,
 } from './util/menu.model';
+
+export { menuRoutes } from './feature/menu.routes';
