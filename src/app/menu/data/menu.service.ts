@@ -1,7 +1,13 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
+
 import { LanguageService } from '@shared/api';
 import { MenuClient } from './menu.client';
-import { Dish, OrderCriteria, Section } from '@menu/util/menu.model';
+import type {
+  Allergen,
+  Dish,
+  OrderCriteria,
+  Section,
+} from '@menu/util/menu.model';
 import { localizeDish } from '@menu/util/menu-localization';
 import { matchesSearch } from '@menu/util/normalize-text';
 import { buildMenuTree } from '@menu/util/menu-tree';
@@ -19,6 +25,7 @@ export class MenuService {
   readonly dishes = this._dishes.asReadonly();
   private readonly _sections = signal<Section[]>([]);
   readonly sections = this._sections.asReadonly();
+
   readonly localizedDishes = computed(() =>
     this._dishes().map((dish) =>
       localizeDish(dish, this.languageService.lang()),
@@ -44,6 +51,23 @@ export class MenuService {
       this.sortCriteria(),
     ),
   );
+
+  readonly availableDishes = computed(() => {
+    return this.localizedDishes().filter((dish) => dish.isAvailable);
+  });
+
+  readonly availableAllergens = computed(() => {
+    const allergensMap = new Map<string, Allergen>();
+    const allAllergens = this.availableDishes().flatMap(
+      (dish) => dish.allergens,
+    );
+    for (const allergen of allAllergens) {
+      allergensMap.set(allergen.code, allergen);
+    }
+    return [...allergensMap.values()].sort((a, b) =>
+      a.code.localeCompare(b.code),
+    );
+  });
 
   // Load state
   private readonly _status = signal<'idle' | 'loading' | 'ready' | 'error'>(
