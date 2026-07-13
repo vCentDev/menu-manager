@@ -17,6 +17,7 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@primeicons/angular": "8.0.0-alpha.1",
     "@primeuix/themes": "^2.0.3",
     "@supabase/supabase-js": "^2.108.1",
     "primeng": "^21.1.9",
