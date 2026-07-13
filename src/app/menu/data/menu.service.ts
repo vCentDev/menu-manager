@@ -1,10 +1,10 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { LanguageService } from '../../shared/api';
+import { LanguageService } from '@shared/api';
 import { MenuClient } from './menu.client';
-import { Dish, OrderCriteria, Section } from '../util/menu.model';
-import { localizeDish } from '../util/menu-localization';
-import { matchesSearch } from '../util/normalize-text';
-import { buildMenuTree } from '../util/menu-tree';
+import { Dish, OrderCriteria, Section } from '@menu/util/menu.model';
+import { localizeDish } from '@menu/util/menu-localization';
+import { matchesSearch } from '@menu/util/normalize-text';
+import { buildMenuTree } from '@menu/util/menu-tree';
 
 @Injectable({
   providedIn: 'root',

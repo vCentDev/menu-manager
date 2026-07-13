@@ -1,0 +1,25 @@
+<div>
+  <h3>
+    {{ dish().name }} -
+    <span>{{
+      dish().priceCents / 100 | currency: "EUR" : "symbol" : "1.2-2"
+    }}</span>
+  </h3>
+  @if (dish().description) {
+    <p>{{ dish().description }}</p>
+  }
+  @if (dish().allergens.length > 0) {
+    <p>
+      <span>Allergens: </span>
+      <span>
+        @for (allergen of dish().allergens; track allergen.id) {
+          <p-badge
+            [value]="allergen.translations[lang()].name"
+            severity="info"
+            badgeSize="small"
+          />
+        }
+      </span>
+    </p>
+  }
+</div>

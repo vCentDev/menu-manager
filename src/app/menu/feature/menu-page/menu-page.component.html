@@ -1,0 +1,14 @@
+<h1>{{ title() }}</h1>
+
+@if (menuService.status() === "loading" || menuService.status() === "idle") {
+  <p-progress-spinner ariaLabel="loading" />
+} @else if (menuService.status() === "error") {
+  <p-message severity="error" variant="outlined">{{
+    menuService.error() ?? "Error al cargar datos"
+  }}</p-message>
+  <button (click)="menuService.load()" pButton>Retry</button>
+} @else if (menuService.status() === "ready") {
+  @for (dish of menuService.visibleDishes().slice(0, 3); track dish.id) {
+    <app-dish-card [dish]="dish" [lang]="langService.lang()" />
+  }
+}

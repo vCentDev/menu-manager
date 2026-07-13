@@ -1,0 +1,31 @@
+import { Component, inject, OnInit, signal } from '@angular/core';
+
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+
+import { MenuService } from '@menu/data/menu.service';
+import { DishCardComponent } from '../../ui/dish-card/dish-card.component';
+import { LanguageService } from '@app/shared/api';
+
+@Component({
+  selector: 'app-menu-page',
+  imports: [
+    ProgressSpinnerModule,
+    MessageModule,
+    ButtonModule,
+    DishCardComponent,
+  ],
+  templateUrl: './menu-page.component.html',
+  styleUrl: './menu-page.component.css',
+})
+export class MenuPageComponent implements OnInit {
+  protected readonly menuService = inject(MenuService);
+  protected readonly langService = inject(LanguageService);
+
+  protected readonly title = signal('Menú Casa Mateu');
+
+  async ngOnInit(): Promise<void> {
+    await this.menuService.load();
+  }
+}

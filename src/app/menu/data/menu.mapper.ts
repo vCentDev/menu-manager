@@ -1,4 +1,4 @@
-import type { Allergen, Dish, Section, Translation } from '../util/menu.model';
+import type { Allergen, Dish, Section, Translation } from '@menu/util/menu.model';
 import type {
   RawAllergen,
   RawDish,

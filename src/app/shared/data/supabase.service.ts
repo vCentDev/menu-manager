@@ -7,7 +7,7 @@ import {
   User,
 } from '@supabase/supabase-js';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root',

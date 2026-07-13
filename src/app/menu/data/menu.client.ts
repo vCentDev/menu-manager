@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 
-import { SupabaseService } from '../../shared/api';
-import type { Dish, Section } from '../util/menu.model';
+import { SupabaseService } from '@shared/api';
+import type { Dish, Section } from '@menu/util/menu.model';
 import type { RawDish, RawSection } from './menu.type';
 import { mapDish, mapSection } from './menu.mapper';
 

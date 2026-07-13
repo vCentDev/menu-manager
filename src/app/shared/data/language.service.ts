@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import type { LanguageCode } from '../util/language.model';
+import type { LanguageCode } from '@shared/util/language.model';
 
 function readStoredLanguage(): LanguageCode {
   return localStorage.getItem('lang') === 'en' ? 'en' : 'es';

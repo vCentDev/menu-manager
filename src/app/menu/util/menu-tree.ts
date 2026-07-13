@@ -1,5 +1,5 @@
 import { localizeSection } from './menu-localization';
-import type { LanguageCode } from '../../shared/api';
+import type { LanguageCode } from '@shared/api';
 import type {
   LocalizedDish,
   OrderCriteria,

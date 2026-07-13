@@ -1,4 +1,4 @@
-import { LanguageCode } from '../../shared/api';
+import { LanguageCode } from '@shared/api';
 import {
   Dish,
   LocalizedDish,
