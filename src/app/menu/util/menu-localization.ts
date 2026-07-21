@@ -1,5 +1,6 @@
 import { LanguageCode } from '@shared/api';
 import {
+  Allergen,
   Dish,
   LocalizedDish,
   LocalizedSection,
@@ -45,4 +46,12 @@ export function localizeSection(
     name: translation.name,
     slug: section.slug,
   };
+}
+
+export function localizeAllergen(
+  allergen: Allergen,
+  lang: LanguageCode,
+): string {
+  const translation = resolveTranslation(allergen.translations, lang);
+  return translation.name || allergen.code;
 }

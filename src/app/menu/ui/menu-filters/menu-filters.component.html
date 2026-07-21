@@ -1,0 +1,63 @@
+<div>
+  <p-iconfield>
+    <p-inputicon>
+      <svg data-p-icon="search"></svg>
+    </p-inputicon>
+    <input
+      type="text"
+      pInputText
+      placeholder="Search"
+      [(ngModel)]="search"
+      pSize="small"
+    />
+  </p-iconfield>
+</div>
+
+<div>
+  <p-selectbutton
+    [options]="sortOptions"
+    optionLabel="label"
+    optionValue="value"
+    [(ngModel)]="sort"
+    size="small"
+  >
+  </p-selectbutton>
+  <p-selectbutton
+    [options]="langOptions"
+    optionValue="value"
+    optionLabel="label"
+    [(ngModel)]="lang"
+    size="small"
+  >
+  </p-selectbutton>
+</div>
+
+<div>
+  @if (allergens().length > 0) {
+    <p>Excluir alérgenos:</p>
+
+    @for (allergen of allergens(); track allergen.code) {
+      <p-button
+        [label]="localizeAllergen(allergen, lang())"
+        [outlined]="!excludedAllergens().has(allergen.code)"
+        [rounded]="true"
+        size="small"
+        (onClick)="allergenToggle.emit(allergen.code)"
+      />
+    }
+  }
+</div>
+<div>
+  @if (excludedAllergens().size > 0) {
+    <button
+      pButton
+      iconOnly
+      rounded
+      severity="danger"
+      size="small"
+      (click)="clearAllergens.emit()"
+    >
+      <svg data-p-icon="times"></svg>
+    </button>
+  }
+</div>

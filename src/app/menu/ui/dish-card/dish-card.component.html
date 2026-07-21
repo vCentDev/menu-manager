@@ -14,7 +14,7 @@
       <span>
         @for (allergen of dish().allergens; track allergen.id) {
           <p-badge
-            [value]="allergen.translations[lang()].name"
+            [value]="localizeAllergen(allergen, lang())"
             severity="info"
             badgeSize="small"
           />

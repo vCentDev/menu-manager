@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenuService } from '@menu/data/menu.service';
 import { LanguageService } from '@app/shared/api';
 import { MenuSectionComponent } from '@app/menu/ui/menu-section/menu-section.component';
+import { MenuFiltersComponent } from '@app/menu/ui/menu-filters/menu-filters.component';
 
 @Component({
   selector: 'app-menu-page',
@@ -15,6 +16,7 @@ import { MenuSectionComponent } from '@app/menu/ui/menu-section/menu-section.com
     MessageModule,
     ButtonModule,
     MenuSectionComponent,
+    MenuFiltersComponent,
   ],
   templateUrl: './menu-page.component.html',
   styleUrl: './menu-page.component.css',
@@ -27,6 +29,5 @@ export class MenuPageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.menuService.load();
-    console.log(this.menuService.availableAllergens());
   }
 }

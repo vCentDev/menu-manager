@@ -8,6 +8,18 @@
   }}</p-message>
   <button (click)="menuService.load()" pButton>Retry</button>
 } @else if (menuService.status() === "ready") {
+  <app-menu-filters
+    [search]="menuService.searchQuery()"
+    (searchChange)="menuService.setSearch($event)"
+    [sort]="menuService.sortCriteria()"
+    (sortChange)="menuService.setSort($event)"
+    [lang]="langService.lang()"
+    (langChange)="langService.changeLanguage($event)"
+    [allergens]="menuService.availableAllergens()"
+    [excludedAllergens]="menuService.excludedAllergenCodes()"
+    (allergenToggle)="menuService.toggleAllergen($event)"
+    (clearAllergens)="menuService.clearExcludedAllergens()"
+  />
   @for (node of menuService.menuTree(); track node.section.id) {
     <app-menu-section [node]="node" [lang]="langService.lang()" />
   } @empty {
