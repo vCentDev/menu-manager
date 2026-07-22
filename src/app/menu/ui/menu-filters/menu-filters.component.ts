@@ -1,5 +1,13 @@
-import { Component, input, model, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  model,
+  output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,9 +15,9 @@ import { InputIconModule } from 'primeng/inputicon';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ButtonModule } from 'primeng/button';
 import { Times } from '@primeicons/angular/times';
+import { Search } from '@primeicons/angular/search';
 
 import type { OrderCriteria } from '../../util/menu.model';
-import { Search } from '@primeicons/angular/search';
 import type { Allergen } from '../../util/menu.model';
 import { localizeAllergen } from '../../util/menu-localization';
 
@@ -24,18 +32,29 @@ import { localizeAllergen } from '../../util/menu-localization';
     Search,
     Times,
     FormsModule,
+    TranslatePipe,
   ],
   templateUrl: './menu-filters.component.html',
   styleUrl: './menu-filters.component.css',
 })
 export class MenuFiltersComponent {
+  private readonly translate = inject(TranslateService);
   protected readonly localizeAllergen = localizeAllergen;
 
-  protected readonly sortOptions: { label: string; value: OrderCriteria }[] = [
-    { value: 'default', label: 'Por defecto' },
-    { value: 'price-asc', label: 'Precio ↑' },
-    { value: 'price-desc', label: 'Precio ↓' },
+  private readonly sortOptionDefs = [
+    { value: 'default' as const, labelKey: 'filters.sort.default' },
+    { value: 'price-asc' as const, labelKey: 'filters.sort.priceAsc' },
+    { value: 'price-desc' as const, labelKey: 'filters.sort.priceDesc' },
   ];
+
+  protected readonly sortOptions = computed(() => {
+    this.lang();
+    return this.sortOptionDefs.map((def) => ({
+      value: def.value,
+      label: this.translate.instant(def.labelKey),
+    }));
+  });
+
   protected readonly langOptions = [
     { value: 'es', label: 'ES' },
     { value: 'en', label: 'EN' },

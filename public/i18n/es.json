@@ -1,0 +1,23 @@
+{
+  "menu": {
+    "loading": "Cargando carta…",
+    "error": "Error al cargar datos",
+    "retry": "Reintentar",
+    "empty": "No hay platos disponibles para mostrar."
+  },
+  "filters": {
+    "search": {
+      "placeholder": "Buscar…"
+    },
+    "sort": {
+      "default": "Por defecto",
+      "priceAsc": "Precio ↑",
+      "priceDesc": "Precio ↓"
+    },
+    "allergens": "Excluir alérgenos:",
+    "clearAllergens": "Quitar filtros de alérgenos"
+  },
+  "dish": {
+    "allergens": "Alérgenos:"
+  }
+}

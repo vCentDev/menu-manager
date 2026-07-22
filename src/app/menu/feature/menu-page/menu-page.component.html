@@ -1,12 +1,14 @@
 <h1>{{ title() }}</h1>
 
 @if (menuService.status() === "loading" || menuService.status() === "idle") {
-  <p-progress-spinner ariaLabel="loading" />
+  <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />
 } @else if (menuService.status() === "error") {
   <p-message severity="error" variant="outlined">{{
-    menuService.error() ?? "Error al cargar datos"
+    menuService.error() ?? ("menu.error" | translate)
   }}</p-message>
-  <button (click)="menuService.load()" pButton>Retry</button>
+  <button (click)="menuService.load()" pButton>
+    {{ "menu.retry" | translate }}
+  </button>
 } @else if (menuService.status() === "ready") {
   <app-menu-filters
     [search]="menuService.searchQuery()"
@@ -23,6 +25,6 @@
   @for (node of menuService.menuTree(); track node.section.id) {
     <app-menu-section [node]="node" [lang]="langService.lang()" />
   } @empty {
-    <p>No hay platos disponibles para mostrar.</p>
+    <p>{{ "menu.empty" | translate }}</p>
   }
 }

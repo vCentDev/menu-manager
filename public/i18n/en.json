@@ -1,0 +1,23 @@
+{
+  "menu": {
+    "loading": "Loading menu...",
+    "error": "Error loading menu",
+    "retry": "Retry",
+    "empty": "No menu items found"
+  },
+  "filters": {
+    "search": {
+      "placeholder": "Search..."
+    },
+    "sort": {
+      "default": "Default",
+      "priceAsc": "Price ↑",
+      "priceDesc": "Price ↓"
+    },
+    "allergens": "Exclude allergens:",
+    "clearAllergens": "Clear allergens"
+  },
+  "dish": {
+    "allergens": "Allergens:"
+  }
+}

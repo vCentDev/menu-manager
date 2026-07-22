@@ -1,5 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { BadgeModule } from 'primeng/badge';
 
@@ -8,7 +9,7 @@ import { localizeAllergen } from '@menu/util/menu-localization';
 
 @Component({
   selector: 'app-dish-card',
-  imports: [CurrencyPipe, BadgeModule],
+  imports: [CurrencyPipe, BadgeModule, TranslatePipe],
   templateUrl: './dish-card.component.html',
   styleUrl: './dish-card.component.css',
 })

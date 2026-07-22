@@ -6,7 +6,7 @@
     <input
       type="text"
       pInputText
-      placeholder="Search"
+      [placeholder]="'filters.search.placeholder' | translate"
       [(ngModel)]="search"
       pSize="small"
     />
@@ -15,7 +15,7 @@
 
 <div>
   <p-selectbutton
-    [options]="sortOptions"
+    [options]="sortOptions()"
     optionLabel="label"
     optionValue="value"
     [(ngModel)]="sort"
@@ -34,7 +34,7 @@
 
 <div>
   @if (allergens().length > 0) {
-    <p>Excluir alérgenos:</p>
+    <p>{{ "filters.allergens" | translate }}</p>
 
     @for (allergen of allergens(); track allergen.code) {
       <p-button
@@ -55,6 +55,8 @@
       rounded
       severity="danger"
       size="small"
+      [attr.aria-label]="'filters.clearAllergens' | translate"
+      [title]="'filters.clearAllergens' | translate"
       (click)="clearAllergens.emit()"
     >
       <svg data-p-icon="times"></svg>
