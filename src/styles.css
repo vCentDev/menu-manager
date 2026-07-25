@@ -1,8 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
+  min-height: 100vh;
   background-color: var(--p-surface-50);
+  color: var(--p-text-color);
   font-family: "DM Sans", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1 {
@@ -48,8 +60,8 @@ h1 {
 /*? Para los precios de la carta  */
 @font-face {
   font-display: swap;
-  font-family: "DM Mono", monospace;
+  font-family: "DM Mono";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/dm-mono-v16-latin-regular.woff2");
+  src: url("/fonts/dm-mono-v16-latin-regular.woff2") format("woff2");
 }

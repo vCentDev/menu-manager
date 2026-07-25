@@ -1,25 +1,32 @@
-<div>
-  <h4>
-    {{ dish().name }} -
-    <span>{{
-      dish().priceCents / 100 | currency: "EUR" : "symbol" : "1.2-2"
-    }}</span>
-  </h4>
-  @if (dish().description) {
-    <p>{{ dish().description }}</p>
+<article class="dish">
+  @if (dish().imageUrl; as imageUrl) {
+    <img class="dish__image" [src]="imageUrl" [alt]="dish().name" />
   }
-  @if (dish().allergens.length > 0) {
-    <p>
-      <span>{{ "dish.allergens" | translate }} </span>
-      <span>
-        @for (allergen of dish().allergens; track allergen.id) {
-          <p-badge
-            [value]="localizeAllergen(allergen, lang())"
-            severity="info"
-            badgeSize="small"
-          />
-        }
-      </span>
-    </p>
-  }
-</div>
+  <div class="dish__body">
+    <header class="dish__header">
+      <h4 class="dish__name">{{ dish().name }}</h4>
+      <span class="dish__price">{{
+        dish().priceCents / 100 | currency: "EUR" : "symbol" : "1.2-2"
+      }}</span>
+    </header>
+    @if (dish().description) {
+      <p class="dish__description">{{ dish().description }}</p>
+    }
+    @if (dish().allergens.length > 0) {
+      <div class="dish__allergens">
+        <span class="dish__allergens-label">{{
+          "dish.allergens" | translate
+        }}</span>
+        <div class="dish__allergens-list">
+          @for (allergen of dish().allergens; track allergen.id) {
+            <p-badge
+              [value]="localizeAllergen(allergen, lang())"
+              severity="info"
+              badgeSize="small"
+            />
+          }
+        </div>
+      </div>
+    }
+  </div>
+</article>

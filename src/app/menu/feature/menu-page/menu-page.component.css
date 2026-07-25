@@ -1,0 +1,51 @@
+:host {
+  display: block;
+}
+
+.menu-page {
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.menu-page__header {
+  margin-block-end: 1.75rem;
+  text-align: center;
+}
+
+.menu-page__title {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--p-primary-color);
+  margin: 0;
+}
+
+.menu-page__state {
+  display: flex;
+  justify-content: center;
+  padding-block: 4rem;
+}
+
+.menu-page__state--error {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  max-width: 24rem;
+  margin-inline: auto;
+}
+
+.menu-page__empty {
+  display: block;
+  margin-block-start: 2rem;
+}
+
+app-menu-filters + app-menu-section {
+  margin-block-start: 2rem;
+}
+
+app-menu-section + app-menu-section {
+  margin-block-start: 2.5rem;
+}

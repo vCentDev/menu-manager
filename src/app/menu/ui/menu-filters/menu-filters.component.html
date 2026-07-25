@@ -1,65 +1,72 @@
-<div>
-  <p-iconfield>
-    <p-inputicon>
-      <svg data-p-icon="search"></svg>
-    </p-inputicon>
-    <input
-      type="text"
-      pInputText
-      [placeholder]="'filters.search.placeholder' | translate"
-      [(ngModel)]="search"
-      pSize="small"
-    />
-  </p-iconfield>
-</div>
+<article class="filters">
+  <div class="filters__toolbar">
+    <div class="filters__search">
+      <p-iconfield>
+        <p-inputicon>
+          <svg data-p-icon="search"></svg>
+        </p-inputicon>
+        <input
+          type="text"
+          pInputText
+          [placeholder]="'filters.search.placeholder' | translate"
+          [(ngModel)]="search"
+          pSize="small"
+        />
+      </p-iconfield>
+    </div>
 
-<div>
-  <p-selectbutton
-    [options]="sortOptions()"
-    optionLabel="label"
-    optionValue="value"
-    [(ngModel)]="sort"
-    size="small"
-  >
-  </p-selectbutton>
-  <p-selectbutton
-    [options]="langOptions"
-    optionValue="value"
-    optionLabel="label"
-    [(ngModel)]="lang"
-    size="small"
-  >
-  </p-selectbutton>
-</div>
-
-<div>
-  @if (allergens().length > 0) {
-    <p>{{ "filters.allergens" | translate }}</p>
-
-    @for (allergen of allergens(); track allergen.code) {
-      <p-button
-        [label]="localizeAllergen(allergen, lang())"
-        [outlined]="!excludedAllergens().has(allergen.code)"
-        [rounded]="true"
+    <div class="filters__controls">
+      <p-selectbutton
+        [options]="sortOptions()"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="sort"
         size="small"
-        (onClick)="allergenToggle.emit(allergen.code)"
-      />
+      >
+      </p-selectbutton>
+      <p-selectbutton
+        [options]="langOptions"
+        optionValue="value"
+        optionLabel="label"
+        [(ngModel)]="lang"
+        size="small"
+      >
+      </p-selectbutton>
+    </div>
+  </div>
+
+  <div class="filters__allergens">
+    @if (allergens().length > 0) {
+      <p class="filters__allergens-label">
+        {{ "filters.allergens" | translate }}
+      </p>
+
+      <div class="filters__allergens-list">
+        @for (allergen of allergens(); track allergen.code) {
+          <p-button
+            [label]="localizeAllergen(allergen, lang())"
+            [outlined]="!excludedAllergens().has(allergen.code)"
+            [rounded]="true"
+            size="small"
+            (onClick)="allergenToggle.emit(allergen.code)"
+          />
+        }
+
+        @if (excludedAllergens().size > 0) {
+          <button
+            pButton
+            iconOnly
+            rounded
+            severity="danger"
+            size="small"
+            [attr.aria-label]="'filters.clearAllergens' | translate"
+            [title]="'filters.clearAllergens' | translate"
+            (click)="clearAllergens.emit()"
+          >
+            <svg data-p-icon="times"></svg>
+          </button>
+        }
+      </div>
     }
-  }
-</div>
-<div>
-  @if (excludedAllergens().size > 0) {
-    <button
-      pButton
-      iconOnly
-      rounded
-      severity="danger"
-      size="small"
-      [attr.aria-label]="'filters.clearAllergens' | translate"
-      [title]="'filters.clearAllergens' | translate"
-      (click)="clearAllergens.emit()"
-    >
-      <svg data-p-icon="times"></svg>
-    </button>
-  }
-</div>
+  </div>
+</article>

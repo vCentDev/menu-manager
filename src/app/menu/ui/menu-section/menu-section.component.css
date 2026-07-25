@@ -1,13 +1,46 @@
-.section {
-  margin-bottom: 2rem;
-}
-
-.subsection {
-  margin-top: 1rem;
-}
-
-.dish-list app-dish-card {
-  display: block;
-  margin-bottom: 0.75rem;
-}
-
+:host {
+  display: block;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section--nested {
+  padding-inline-start: 1rem;
+  margin-block-start: 0.25rem;
+}
+
+.section__title {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  color: var(--p-primary-color);
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+h2.section__title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-block-end: 0.5rem;
+  border-block-end: 1px solid var(--p-content-border-color);
+}
+
+h3.section__title {
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+h4.section__title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--p-text-muted-color);
+}
+
+.section__dishes {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}

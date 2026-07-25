@@ -1,30 +1,46 @@
-<h1>{{ title() }}</h1>
+<div class="menu-page">
+  <header class="menu-page__header">
+    <h1 class="menu-page__title">{{ title() }}</h1>
+  </header>
 
-@if (menuService.status() === "loading" || menuService.status() === "idle") {
-  <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />
-} @else if (menuService.status() === "error") {
-  <p-message severity="error" variant="outlined">{{
-    menuService.error() ?? ("menu.error" | translate)
-  }}</p-message>
-  <button (click)="menuService.load()" pButton>
-    {{ "menu.retry" | translate }}
-  </button>
-} @else if (menuService.status() === "ready") {
-  <app-menu-filters
-    [search]="menuService.searchQuery()"
-    (searchChange)="menuService.setSearch($event)"
-    [sort]="menuService.sortCriteria()"
-    (sortChange)="menuService.setSort($event)"
-    [lang]="langService.lang()"
-    (langChange)="langService.changeLanguage($event)"
-    [allergens]="menuService.availableAllergens()"
-    [excludedAllergens]="menuService.excludedAllergenCodes()"
-    (allergenToggle)="menuService.toggleAllergen($event)"
-    (clearAllergens)="menuService.clearExcludedAllergens()"
-  />
-  @for (node of menuService.menuTree(); track node.section.id) {
-    <app-menu-section [node]="node" [lang]="langService.lang()" />
-  } @empty {
-    <p>{{ "menu.empty" | translate }}</p>
-  }
-}
+  <div class="menu-page__content">
+    @if (menuService.status() === "loading" || menuService.status() === "idle") {
+      <div class="menu-page__state">
+        <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />
+      </div>
+    } @else if (menuService.status() === "error") {
+      <div class="menu-page__state menu-page__state--error">
+        <p-message severity="error" variant="outlined">{{
+          menuService.error() ?? ("menu.error" | translate)
+        }}</p-message>
+        <button (click)="menuService.load()" pButton>
+          {{ "menu.retry" | translate }}
+        </button>
+      </div>
+    } @else if (menuService.status() === "ready") {
+      <app-menu-filters
+        [search]="menuService.searchQuery()"
+        (searchChange)="menuService.setSearch($event)"
+        [sort]="menuService.sortCriteria()"
+        (sortChange)="menuService.setSort($event)"
+        [lang]="langService.lang()"
+        (langChange)="langService.changeLanguage($event)"
+        [allergens]="menuService.availableAllergens()"
+        [excludedAllergens]="menuService.excludedAllergenCodes()"
+        (allergenToggle)="menuService.toggleAllergen($event)"
+        (clearAllergens)="menuService.clearExcludedAllergens()"
+      />
+      @for (node of menuService.menuTree(); track node.section.id) {
+        <app-menu-section [node]="node" [lang]="langService.lang()" />
+      } @empty {
+        <p-message
+          class="menu-page__empty"
+          severity="secondary"
+          variant="outlined"
+        >
+          {{ "menu.empty" | translate }}
+        </p-message>
+      }
+    }
+  </div>
+</div>
