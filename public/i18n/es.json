@@ -1,5 +1,6 @@
 {
   "menu": {
+    "eyebrow": "Restaurante",
     "loading": "Cargando carta…",
     "error": "Error al cargar datos",
     "retry": "Reintentar",

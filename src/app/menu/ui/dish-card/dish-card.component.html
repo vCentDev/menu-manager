@@ -5,6 +5,7 @@
   <div class="dish__body">
     <header class="dish__header">
       <h4 class="dish__name">{{ dish().name }}</h4>
+      <span class="dish__leader" aria-hidden="true"></span>
       <span class="dish__price">{{
         dish().priceCents / 100 | currency: "EUR" : "symbol" : "1.2-2"
       }}</span>
@@ -21,7 +22,7 @@
           @for (allergen of dish().allergens; track allergen.id) {
             <p-badge
               [value]="localizeAllergen(allergen, lang())"
-              severity="info"
+              severity="secondary"
               badgeSize="small"
             />
           }

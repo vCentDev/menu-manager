@@ -3,14 +3,25 @@
 }
 
 .menu-page {
-  max-width: 40rem;
+  max-width: 42rem;
   margin-inline: auto;
-  padding: 2.5rem 1.25rem 4rem;
+  padding: 3rem 1.25rem 4rem;
 }
 
 .menu-page__header {
-  margin-block-end: 1.75rem;
   text-align: center;
+  padding-block-end: 1.5rem;
+  margin-block-end: 2rem;
+  border-block-end: 3px double var(--p-surface-300);
+}
+
+.menu-page__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--p-text-muted-color);
 }
 
 .menu-page__title {
@@ -21,6 +32,17 @@
   line-height: 1.15;
   color: var(--p-primary-color);
   margin: 0;
+}
+
+.menu-page__sheet {
+  /* Lo consume menu-filters para extender su banda hasta los bordes de la hoja */
+  --sheet-padding-inline: clamp(1rem, 4vw, 2rem);
+
+  background-color: var(--p-surface-0);
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius, 0.5rem);
+  padding: 0 var(--sheet-padding-inline) 2.25rem;
+  overflow: hidden;
 }
 
 .menu-page__state {

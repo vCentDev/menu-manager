@@ -1,9 +1,10 @@
 <div class="menu-page">
   <header class="menu-page__header">
+    <p class="menu-page__eyebrow">{{ "menu.eyebrow" | translate }}</p>
     <h1 class="menu-page__title">{{ title() }}</h1>
   </header>
 
-  <div class="menu-page__content">
+  <div class="menu-page__sheet">
     @if (menuService.status() === "loading" || menuService.status() === "idle") {
       <div class="menu-page__state">
         <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />

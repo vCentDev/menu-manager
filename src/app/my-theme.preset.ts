@@ -1,22 +1,9 @@
 import { definePreset } from '@primeuix/themes';
-import Lara from '@primeuix/themes/lara';
+import Aura from '@primeuix/themes/aura';
 
-const sohoSurface = {
-  0: '#ffffff',
-  50: '#ececec',
-  100: '#dedfdf',
-  200: '#c4c4c6',
-  300: '#adaeb0',
-  400: '#97979b',
-  500: '#7f8084',
-  600: '#6a6b70',
-  700: '#55565b',
-  800: '#3f4046',
-  900: '#2c2c34',
-  950: '#16161d',
-};
-
-export const MyPreset = definePreset(Lara, {
+// Variante "Noir": el primary deriva de la escala de superficie (tinta sobre papel),
+// con la paleta slate de Aura como superficie.
+export const MyPreset = definePreset(Aura, {
   semantic: {
     primary: {
       50: '{surface.50}',
@@ -33,7 +20,20 @@ export const MyPreset = definePreset(Lara, {
     },
     colorScheme: {
       light: {
-        surface: sohoSurface,
+        surface: {
+          0: '#ffffff',
+          50: '{slate.50}',
+          100: '{slate.100}',
+          200: '{slate.200}',
+          300: '{slate.300}',
+          400: '{slate.400}',
+          500: '{slate.500}',
+          600: '{slate.600}',
+          700: '{slate.700}',
+          800: '{slate.800}',
+          900: '{slate.900}',
+          950: '{slate.950}',
+        },
         primary: {
           color: '{primary.950}',
           contrastColor: '#ffffff',

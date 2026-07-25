@@ -1,5 +1,6 @@
 {
   "menu": {
+    "eyebrow": "Restaurant",
     "loading": "Loading menu...",
     "error": "Error loading menu",
     "retry": "Retry",

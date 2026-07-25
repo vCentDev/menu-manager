@@ -21,6 +21,21 @@ h1 {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
+::selection {
+  background-color: var(--p-primary-color);
+  color: var(--p-primary-contrast-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /** TYPOGRAPHY */
 
 /* dm-sans-regular - latin */

@@ -2,11 +2,16 @@
   display: block;
 }
 
+/* Banda de controles en papel tintado: se extiende hasta los bordes de la hoja
+   de la carta cuando el contenedor expone --sheet-padding-inline. */
 .filters {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  padding-block-end: 1.25rem;
+  margin-inline: calc(-1 * var(--sheet-padding-inline, 0px));
+  padding: 1.25rem var(--sheet-padding-inline, 0px);
+  background-color: var(--p-surface-50);
+  border-block-end: 1px solid var(--p-content-border-color);
 }
 
 .filters__toolbar {
