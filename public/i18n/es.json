@@ -39,6 +39,11 @@
       }
     },
     "logout": "Cerrar sesión",
+    "forbidden": {
+      "eyebrow": "Acceso restringido",
+      "title": "Sin permisos",
+      "body": "Tu cuenta no tiene permisos para gestionar la carta. Pide acceso a un administrador o entra con otra cuenta."
+    },
     "admin": {
       "placeholder": "Panel de administración"
     }

@@ -39,6 +39,11 @@
       }
     },
     "logout": "Sign out",
+    "forbidden": {
+      "eyebrow": "Restricted access",
+      "title": "No permissions",
+      "body": "Your account cannot manage the menu. Ask an administrator for access or sign in with another account."
+    },
     "admin": {
       "placeholder": "Admin panel"
     }
