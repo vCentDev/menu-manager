@@ -12,11 +12,16 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 | Área | Estado |
 |------|--------|
 | Carta pública (lectura + filtros + i18n chrome + UI) | ✅ Completo |
-| Auth (login, guard, rutas) | ⬜ Pendiente — **siguiente** ([spec](specs/06-auth/spec.md)) |
-| Admin MVP (CRUD carta) | ⬜ Pendiente |
-| Specs formales por hito (`docs/specs/`) | 🔄 Auth listo; Admin cuando toque |
+| Auth (login, guard, rutas, stub admin) | ✅ Completo ([spec](specs/06-auth/spec.md)) |
+| Admin MVP (CRUD carta) | ⬜ Pendiente — **siguiente** |
+| Specs formales por hito (`docs/specs/`) | 🔄 Auth cerrado; Admin cuando toque |
 
-**Siguiente trabajo:** Hito 6 — Auth.
+**Siguiente trabajo:** Hito 7 — Admin MVP.
+
+- Spec/plan en `docs/specs/` (crear al empezar).
+- CRUD secciones y platos detrás de `authGuard`.
+- Sustituir stub `admin-page` por features reales.
+- i18n `admin.*` y UI alineada al tema Aura noir/slate.
 
 ## Roadmap
 
@@ -59,31 +64,24 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 - Banda de filtros en `surface-100` (sangrado con `--sheet-padding-inline`)
 - Badges de alérgenos `severity="secondary"` (coherente con noir)
 
+#### Hito 6 — Auth ✅
+- Dominio `auth/`: `login-page`, `auth.routes.ts`, `authGuard`, export en `auth/api.ts`
+- Login email/contraseña vía `SupabaseService` (sin `AuthService` thin)
+- Reactive forms + validación i18n + error genérico de credenciales
+- Rutas: `/login` lazy; `/admin` lazy con `canActivate: [authGuard]`
+- Guard con `await getSession()` (evita race al bootstrap); `returnUrl` seguro
+- Redirect `/login` → `/admin` si ya hay sesión
+- Stub admin (`admin-page` + logout) para verificar el ciclo antes del CRUD
+- i18n `auth.*` (login, validation, logout, admin placeholder)
+
 ### En curso / siguientes
 
-#### Hito 6 — Auth ⬜ (siguiente)
-
-**Specs:** [`docs/specs/06-auth/spec.md`](specs/06-auth/spec.md) · [`plan.md`](specs/06-auth/plan.md)
-
-**Objetivo:** staff inicia sesión y accede a rutas admin protegidas.
-
-**Entregables previstos:**
-1. Dominio `auth/`: feature login (email/contraseña), `auth.routes.ts`, export en `auth/api.ts`
-2. Uso de `SupabaseService.signInWithPassword` / `signOut` (o thin `AuthService` si conviene)
-3. `authGuard` funcional para `/admin/*`
-4. Rutas en `app.routes.ts`: p. ej. `/login` + lazy admin tras guard
-5. i18n: claves `auth.*` (formulario, errores, logout)
-6. UX: redirección post-login; sesión ya escuchada en `SupabaseService`
-7. Stub admin mínimo (placeholder + logout) para verificar el guard antes del CRUD
-
-**Fuera de alcance inicial (salvo decisión explícita):** registro público, OAuth, recuperación de contraseña.
-
-#### Hito 7 — Admin MVP ⬜
+#### Hito 7 — Admin MVP ⬜ (siguiente)
 
 **Objetivo:** gestionar la carta sin tocar Supabase a mano.
 
 **Entregables previstos:**
-1. Lazy routes `admin/*` detrás del guard
+1. Ampliar lazy routes `admin/*` detrás del guard (sustituir stub)
 2. `AdminClient` + mappers (patrón como `MenuClient`)
 3. CRUD **secciones**: nombre es/en, orden, jerarquía básica
 4. CRUD **platos**: precio, sección, traducciones, alérgenos, `imageUrl` opcional, disponibilidad
@@ -95,7 +93,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 - Roles / perfiles más allá de “autenticado”
 - Tests e2e o unitarios del store
 - Tailwind (si se decide; hoy diferido)
-- Specs de hitos futuros (p. ej. Admin) en `docs/specs/<hito>/` — Auth ya documentado en `06-auth/`
+- Specs de hitos futuros (p. ej. Admin) en `docs/specs/<hito>/` — Auth documentado en `06-auth/`
 
 ## Decisiones tomadas (producto / arquitectura)
 
@@ -109,20 +107,25 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 | CSS | Component styles + tokens `--p-*`; Tailwind diferido |
 | Tema | Aura, noir, slate; solo light mode |
 | Gestor de paquetes | **pnpm** |
-| Dominios stubs | `auth/` y `admin/` existen con `api.ts` vacío hasta su hito |
+| Auth facade | Sin `AuthService`; features usan `SupabaseService` directo |
+| Criterio del guard | Hay sesión (`getSession()`); sin roles/`profiles` en Hito 6 |
+| Stub admin | Placeholder + logout en Hito 6; CRUD en Hito 7 |
 
 ## Deuda / mejoras menores conocidas
 
 - Mensaje de error en `MenuService.load()` hardcodeado en ES (`'No se pudo cargar la carta'`) — candidata a i18n o reutilizar `menu.error` en UI.
 - No hay carpeta `supabase/` de migraciones en el repo (esquema gestionado fuera).
 - `README.md` aún es plantilla Angular CLI — actualizar cuando convenga.
+- Stub `admin-page` sin estilos dedicados (aceptable hasta Hito 7).
 
 ## Cómo retomar en un chat nuevo
 
 ```
-@AGENTS.md @docs/PROJECT.md @docs/specs/06-auth/spec.md @docs/specs/06-auth/plan.md
-— [Modo mentor | Implementa]. Hito 6, Paso N.
+@AGENTS.md @docs/PROJECT.md
+— [Modo mentor | Implementa]. Hito 7 — Admin MVP.
 ```
+
+Si existe `docs/specs/07-admin/`, mencionarla también.
 
 ## Mantenimiento de este archivo
 

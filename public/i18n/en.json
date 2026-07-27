@@ -20,5 +20,27 @@
   },
   "dish": {
     "allergens": "Allergens:"
+  },
+  "auth": {
+    "login": {
+      "eyebrow": "Staff access",
+      "subtitle": "Sign in to manage the menu.",
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "backToMenu": "Back to the menu",
+      "error": "Could not sign in. Check your email and password.",
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email address",
+        "passwordRequired": "Password is required",
+        "passwordInvalid": "Password is not valid"
+      }
+    },
+    "logout": "Sign out",
+    "admin": {
+      "placeholder": "Admin panel"
+    }
   }
 }

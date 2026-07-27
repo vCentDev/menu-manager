@@ -5,7 +5,7 @@ Roadmap, hitos y estado variable → [`docs/PROJECT.md`](docs/PROJECT.md).
 
 ## Proyecto
 
-Gestor de carta online para el restaurante **Menú Casa Mateu**. Dominios: `menu` (público), `shared` (infra), `auth` y `admin` (stubs hasta sus hitos).
+Gestor de carta online para el restaurante **Menú Casa Mateu**. Dominios: `menu` (público), `shared` (infra), `auth` (login + guard), `admin` (stub hasta CRUD en Hito 7).
 
 ## Stack
 
@@ -39,8 +39,8 @@ src/app/
   shared/                # infra cross-cutting → api.ts
   menu/                  # dominio carta pública → api.ts
     data/ feature/ ui/ util/
-  auth/                  # dominio auth → api.ts (stub hasta Hito 6)
-  admin/                 # dominio admin → api.ts (stub hasta Hito 7)
+  auth/                  # dominio auth → api.ts (login, guard, rutas)
+  admin/                 # dominio admin → api.ts (stub page; CRUD en Hito 7)
 public/
   i18n/es.json, en.json  # chrome UI (no platos/secciones)
   fonts/                 # fuentes self-hosted
@@ -75,12 +75,14 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 **`menu/api.ts`:** `MenuService`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`
 
-**`auth/api.ts` / `admin/api.ts`:** vacíos (reservados).
+**`auth/api.ts`:** `authRoutes`, `authGuard`
+
+**`admin/api.ts`:** `adminRoutes`
 
 ## Routing
 
 - `app.routes.ts` → lazy `menuRoutes` en `''` (home = carta).
-- Auth/admin añadirán rutas lazy propias en sus hitos (ver `docs/PROJECT.md`).
+- `/login` → lazy `authRoutes`; `/admin` → `canActivate: [authGuard]` + lazy `adminRoutes`.
 
 ## i18n
 
@@ -108,6 +110,15 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 **MenuService:** pipeline `dishes + lang → localizedDishes → visibleDishes → menuTree`. Filtros en cliente. Alérgenos = **excluir**. Orden precio **por sección**.
 
 **Layout:** cabecera editorial + hoja (`menu-page__sheet`); banda filtros con `--sheet-padding-inline`.
+
+## Patrones UI (dominio auth)
+
+| Componente | Rol |
+|------------|-----|
+| `login-page` | SMART: form reactive + `SupabaseService`; redirect si ya hay sesión |
+| `authGuard` | `CanActivateFn` async con `getSession()`; `returnUrl` en query |
+
+**Login:** marca (eyebrow + título) + hoja con formulario; validación i18n por campo; error de credenciales genérico.
 
 ## Supabase
 

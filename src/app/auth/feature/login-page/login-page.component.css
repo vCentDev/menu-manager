@@ -1,0 +1,186 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.login-page {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: clamp(1.5rem, 4vw, 3rem) 1.25rem;
+  overflow: hidden;
+}
+
+.login-page__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--p-surface-100);
+  background-image:
+    radial-gradient(
+      ellipse 80% 55% at 50% -10%,
+      var(--p-surface-0) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 100% 100%,
+      color-mix(in srgb, var(--p-surface-300) 55%, transparent) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 45% 40% at 0% 85%,
+      color-mix(in srgb, var(--p-surface-200) 70%, transparent) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 11px,
+      color-mix(in srgb, var(--p-surface-300) 18%, transparent) 11px,
+      color-mix(in srgb, var(--p-surface-300) 18%, transparent) 12px
+    );
+}
+
+.login-page__composition {
+  width: min(100%, 24rem);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.75rem;
+  animation: login-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.login-page__brand {
+  text-align: center;
+  padding-block-end: 0.25rem;
+}
+
+.login-page__eyebrow {
+  margin: 0 0 0.85rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--p-text-muted-color);
+  animation: login-fade 0.8s ease 0.08s both;
+}
+
+.login-page__title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 7vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--p-primary-color);
+  animation: login-fade 0.85s ease 0.14s both;
+}
+
+.login-page__lede {
+  margin: 0.9rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--p-text-muted-color);
+  animation: login-fade 0.85s ease 0.22s both;
+}
+
+.login-page__sheet {
+  background-color: var(--p-surface-0);
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--p-content-border-radius, 0.5rem);
+  padding: clamp(1.5rem, 4vw, 2rem);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--p-surface-0) 80%, transparent),
+    0 18px 40px -28px color-mix(in srgb, var(--p-surface-950) 35%, transparent);
+  animation: login-rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.login-page__heading {
+  margin: 0 0 1.5rem;
+  padding-block-end: 1rem;
+  border-block-end: 3px double var(--p-surface-300);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 1.375rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--p-text-color);
+}
+
+.login-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.login-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.login-page__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--p-text-muted-color);
+}
+
+.login-page__error {
+  display: block;
+}
+
+.login-page__submit {
+  margin-block-start: 0.35rem;
+}
+
+.login-page__back {
+  align-self: center;
+  font-size: 0.875rem;
+  color: var(--p-text-muted-color);
+  text-decoration: none;
+  border-block-end: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+  animation: login-fade 0.7s ease 0.35s both;
+}
+
+.login-page__back:hover,
+.login-page__back:focus-visible {
+  color: var(--p-primary-color);
+  border-block-end-color: var(--p-primary-color);
+  outline: none;
+}
+
+@keyframes login-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.85rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes login-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-page__composition,
+  .login-page__eyebrow,
+  .login-page__title,
+  .login-page__lede,
+  .login-page__sheet,
+  .login-page__back {
+    animation: none;
+  }
+}

@@ -1,6 +1,7 @@
 # Spec — Hito 6: Auth
 
-Estado: ⬜ pendiente  
+Estado: ✅ completo  
+
 Dependencias: `SupabaseService` (session/user, signIn/signOut), RLS y usuarios staff en Supabase Auth  
 Relacionado: [`docs/PROJECT.md`](../../PROJECT.md) · [`AGENTS.md`](../../../AGENTS.md) · plan: [`plan.md`](./plan.md)
 
@@ -123,3 +124,5 @@ Ajustar textos ES/EN reales en implementación. No meter contenido de carta en e
 ## 9. Definición de hecho
 
 Hito 6 cerrado cuando los criterios de la §7 pasan en local, `auth/api.ts` y `admin/api.ts` exportan las rutas necesarias, y `docs/PROJECT.md` marca Auth como ✅ y Admin como siguiente.
+
+**Estado de cierre:** cumplido (2026-07).

@@ -3,58 +3,55 @@
 Orden de trabajo sugerido. Contrato y criterios → [`spec.md`](./spec.md).  
 Actualiza el estado de cada paso (`⬜` / `🔄` / `✅`) al avanzar.
 
-## Paso 0 — Decisiones rápidas (antes de código)
+## Paso 0 — Decisiones rápidas (antes de código) ✅
 
-Cerrar con recomendación si hace falta:
+Cerrado:
 
-1. ¿Thin `AuthService` en `auth/data` o usar `SupabaseService` directo en el feature?  
-   **Rec:** thin `AuthService` solo si el login acumula mapping de errores / redirects; si no, `inject(SupabaseService)` en `login-page` basta.
-2. ¿Ruta admin stub en este hito?  
-   **Rec:** sí (placeholder + logout), para probar el guard sin esperar al Hito 7.
+1. Sin thin `AuthService` — `inject(SupabaseService)` en features.
+2. Sí stub admin (placeholder + logout) en este hito.
 
-## Paso 1 — i18n `auth.*`
+## Paso 1 — i18n `auth.*` ✅
 
-- Añadir claves en `public/i18n/es.json` y `en.json` (§6 del spec).
-- Sin UI todavía; solo diccionario.
+- Claves en `public/i18n/es.json` y `en.json` (§6 del spec + validation / eyebrow / subtitle / backToMenu).
 
-## Paso 2 — Rutas y barrel `auth`
+## Paso 2 — Rutas y barrel `auth` ✅
 
-- `auth/feature/auth.routes.ts` → path `''` o hijos según diseño (`login` como path del lazy).
-- Cablear en `app.routes.ts`: `{ path: 'login', loadChildren: () => import('@auth/api')... }`.
-- Exportar `authRoutes` (y más adelante `authGuard`) desde `auth/api.ts`.
+- `auth/feature/auth.routes.ts` → `path: ''` → `LoginPageComponent`.
+- `app.routes.ts`: `{ path: 'login', loadChildren: ... authRoutes }`.
+- Export `authRoutes` (y `authGuard`) desde `auth/api.ts`.
 
-## Paso 3 — `LoginPageComponent` (SMART)
+## Paso 3 — `LoginPageComponent` (SMART) ✅
 
 - Feature standalone: formulario email/password (reactive forms).
-- PrimeNG: inputs, botón submit, `p-message` para error.
-- Llamar a `signInWithPassword`; manejar loading y error genérico i18n.
-- Éxito → `router.navigate` a `returnUrl` o `/admin`.
-- Estilos mínimos coherentes con Aura noir/slate (sin rediseñar la carta).
+- PrimeNG: InputText, Password, Button, Message.
+- `signInWithPassword`; loading / error genérico i18n; validación de campos.
+- Éxito → `returnUrl` seguro o `/admin`.
+- Estilos editoriales (marca + hoja) coherentes con Aura noir/slate.
 
-## Paso 4 — Guard + redirect si ya hay sesión
+## Paso 4 — Guard + redirect si ya hay sesión ✅
 
-- Implementar `authGuard` (`CanActivateFn`) exportado vía `auth/api.ts`.
-- Resolver race de sesión inicial (`getSession()` / await).
-- En login: si `session()` ya existe → redirect a `/admin`.
+- `authGuard` (`CanActivateFn`) con `await getSession()`.
+- Export vía `auth/api.ts`.
+- En login: si hay sesión → redirect a `/admin`.
 
-## Paso 5 — Stub admin protegido
+## Paso 5 — Stub admin protegido ✅
 
-- `admin/feature/admin.routes.ts` + página placeholder (título + botón logout).
-- Exportar `adminRoutes` en `admin/api.ts`.
-- En `app.routes.ts`: `{ path: 'admin', canActivate: [authGuard], loadChildren: ... }`.
-- Logout → `signOut()` + navegar a `/login` o `/`.
+- `admin/feature/admin.routes.ts` + `admin-page` (placeholder + logout).
+- Export `adminRoutes` en `admin/api.ts`.
+- `app.routes.ts`: `{ path: 'admin', canActivate: [authGuard], loadChildren: ... }`.
+- Logout → `signOut()` + `/login`.
 
-## Paso 6 — Pulido y verificación
+## Paso 6 — Pulido y verificación ✅
 
-Checklist manual:
+Checklist:
 
-- [ ] `/` carta pública sin login
-- [ ] `/admin` → `/login` sin sesión
-- [ ] Login OK → `/admin`
-- [ ] Login KO → error ES/EN
-- [ ] Logout → no reentrar a admin
-- [ ] `pnpm build`
-- [ ] Actualizar `docs/PROJECT.md` (Auth ✅, siguiente Admin)
+- [x] `/` carta pública sin login
+- [x] `/admin` → `/login` sin sesión (`returnUrl`)
+- [x] Login OK → `/admin`
+- [x] Login KO → error ES/EN (+ validación de formulario)
+- [x] Logout → no reentrar a admin
+- [x] `pnpm build`
+- [x] Actualizar `docs/PROJECT.md` (Auth ✅, siguiente Admin)
 
 ## Orden de dependencias
 
@@ -72,9 +69,6 @@ Paso 5 (admin stub + canActivate)
 Paso 6 (QA + docs)
 ```
 
-## Cómo retomar en un chat nuevo
+## Cómo retomar (hito cerrado)
 
-```
-@AGENTS.md @docs/PROJECT.md @docs/specs/06-auth/spec.md @docs/specs/06-auth/plan.md
-— Modo mentor. Continúa Hito 6, Paso N.
-```
+Hito 6 cerrado. Siguiente: Hito 7 — Admin MVP → [`docs/PROJECT.md`](../../PROJECT.md).
