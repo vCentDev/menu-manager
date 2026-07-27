@@ -13,15 +13,15 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 |------|--------|
 | Carta pública (lectura + filtros + i18n chrome + UI) | ✅ Completo |
 | Auth (login, guard, rutas, stub admin) | ✅ Completo ([spec](specs/06-auth/spec.md)) |
-| Admin MVP (CRUD carta) | ⬜ Pendiente — **siguiente** |
-| Specs formales por hito (`docs/specs/`) | 🔄 Auth cerrado; Admin cuando toque |
+| Admin MVP (CRUD carta) | ⬜ Pendiente — **siguiente** ([spec](specs/07-admin/spec.md) · [plan](specs/07-admin/plan.md)) |
+| Specs formales por hito (`docs/specs/`) | ✅ Auth cerrado; Admin especificado |
 
 **Siguiente trabajo:** Hito 7 — Admin MVP.
 
-- Spec/plan en `docs/specs/` (crear al empezar).
+- Spec y plan ya escritos en `docs/specs/07-admin/`.
 - CRUD secciones y platos detrás de `authGuard`.
-- Sustituir stub `admin-page` por features reales.
-- i18n `admin.*` y UI alineada al tema Aura noir/slate.
+- Sustituir el stub `admin-page` por la pantalla real.
+- Panel **solo en español** (sin `ngx-translate`); UI alineada al tema Aura noir/slate.
 
 ## Roadmap
 
@@ -78,15 +78,17 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 
 #### Hito 7 — Admin MVP ⬜ (siguiente)
 
+**Specs:** [`docs/specs/07-admin/spec.md`](specs/07-admin/spec.md) · [`plan.md`](specs/07-admin/plan.md)
+
 **Objetivo:** gestionar la carta sin tocar Supabase a mano.
 
 **Entregables previstos:**
 1. Ampliar lazy routes `admin/*` detrás del guard (sustituir stub)
-2. `AdminClient` + mappers (patrón como `MenuClient`)
-3. CRUD **secciones**: nombre es/en, orden, jerarquía básica
+2. `AdminClient` + store + mappers (patrón como `MenuClient` / `MenuService`)
+3. CRUD **secciones**: nombre es/en, jerarquía (`parentId`), `slug` y orden automáticos
 4. CRUD **platos**: precio, sección, traducciones, alérgenos, `imageUrl` opcional, disponibilidad
-5. i18n chrome `admin.*`
-6. UI alineada al tema Aura noir/slate
+5. Interacciones rápidas en la lista: toggle de disponibilidad y precio en línea
+6. UI en español, adaptable a móvil, alineada al tema Aura noir/slate
 
 #### Hito 8+ (ideas, no comprometidas)
 - Subida de imágenes a Storage
@@ -110,6 +112,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 | Auth facade | Sin `AuthService`; features usan `SupabaseService` directo |
 | Criterio del guard | Hay sesión (`getSession()`); sin roles/`profiles` en Hito 6 |
 | Stub admin | Placeholder + logout en Hito 6; CRUD en Hito 7 |
+| Idioma del panel admin | Solo español, sin `ngx-translate`; la carta pública sigue ES/EN |
 
 ## Deuda / mejoras menores conocidas
 
@@ -117,15 +120,14 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 - No hay carpeta `supabase/` de migraciones en el repo (esquema gestionado fuera).
 - `README.md` aún es plantilla Angular CLI — actualizar cuando convenga.
 - Stub `admin-page` sin estilos dedicados (aceptable hasta Hito 7).
+- Las rutas de `auth/` (`/login`, `/forbidden`) se ven siempre en español aunque `localStorage.lang` sea `en`: `LanguageService` solo se instancia en `menu-page` / `MenuService`, así que nadie llama a `translate.use()` y ngx-translate usa `fallbackLang: 'es'`. Preexistente desde el Hito 6; de bajo impacto, porque el panel es solo español por decisión.
 
 ## Cómo retomar en un chat nuevo
 
 ```
-@AGENTS.md @docs/PROJECT.md
-— [Modo mentor | Implementa]. Hito 7 — Admin MVP.
+@AGENTS.md @docs/PROJECT.md @docs/specs/07-admin/spec.md @docs/specs/07-admin/plan.md
+— [Modo mentor | Implementa]. Hito 7, Paso N.
 ```
-
-Si existe `docs/specs/07-admin/`, mencionarla también.
 
 ## Mantenimiento de este archivo
 

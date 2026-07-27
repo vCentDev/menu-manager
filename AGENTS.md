@@ -75,14 +75,15 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 **`menu/api.ts`:** `MenuService`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`
 
-**`auth/api.ts`:** `authRoutes`, `authGuard`
+**`auth/api.ts`:** `authRoutes`, `forbiddenRoutes`, `authGuard`, `adminGuard`
 
 **`admin/api.ts`:** `adminRoutes`
 
 ## Routing
 
 - `app.routes.ts` → lazy `menuRoutes` en `''` (home = carta).
-- `/login` → lazy `authRoutes`; `/admin` → `canActivate: [authGuard]` + lazy `adminRoutes`.
+- `/login` → lazy `authRoutes`; `/forbidden` → lazy `forbiddenRoutes`.
+- `/admin` → `canActivate: [authGuard, adminGuard]` + lazy `adminRoutes`.
 
 ## i18n
 
@@ -117,6 +118,8 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 |------------|-----|
 | `login-page` | SMART: form reactive + `SupabaseService`; redirect si ya hay sesión |
 | `authGuard` | `CanActivateFn` async con `getSession()`; `returnUrl` en query |
+| `adminGuard` | `CanActivateFn` async; exige `role = 'admin'` vía `ProfileClient`; deniega si no puede confirmarlo |
+| `forbidden-page` | Pantalla de permisos insuficientes con logout (destino de `adminGuard`) |
 
 **Login:** marca (eyebrow + título) + hoja con formulario; validación i18n por campo; error de credenciales genérico.
 
