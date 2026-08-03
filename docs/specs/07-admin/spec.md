@@ -40,7 +40,7 @@ La frecuencia manda en el diseño: las tareas 1 y 2 se resuelven **en la propia 
 5. Edición en línea del precio y toggle de disponibilidad.
 6. Modal de alta/edición de plato (campos comunes + traducibles + alérgenos).
 7. Borrado de plato con diálogo de confirmación.
-8. Gestión de secciones (alta y edición) en modal secundario, incluida la elección de sección padre.
+8. Gestión de secciones (alta y edición) en pestaña dedicada con `p-tabs` (`TabsModule`), separada de la lista de platos, con modal para el formulario de sección e inclusión de sección padre.
 9. Layout adaptable: filas densas en escritorio, apiladas en móvil (~390px).
 
 ### Fuera de alcance
@@ -175,11 +175,11 @@ Un usuario con sesión pero sin rol ve una pantalla de permisos insuficientes co
 | Vacío | “Todavía no hay platos” + acceso directo a crear el primero |
 | Con datos | Cabecera, filtros y lista agrupada por sección |
 
-**Cabecera:** título de la página, botón *nuevo plato*, acceso a *gestionar secciones*.
+**Cabecera:** título de la página, cerrar sesión y conmutador de pestañas (`p-tabs` de PrimeNG v21) con dos pestañas: **Platos** y **Secciones**.
 
-**Filtros:** búsqueda por nombre, orden por precio o nombre, y disponibilidad (disponibles / no disponibles / todos).
+**Pestaña Platos:** botón *nuevo plato*, filtros (búsqueda por nombre, orden por precio o nombre, disponibilidad) y la lista de platos agrupados por sección.
 
-**Fila de plato:** nombre, precio editable en línea, toggle de disponibilidad, acciones (editar, eliminar) y aviso si falta traducción.
+**Pestaña Secciones:** botón *nueva sección* y la lista/árbol de secciones existentes con sus acciones de edición (modal `admin-section-form`).
 
 ### Interacciones en la lista
 
@@ -204,9 +204,9 @@ Mismo componente para crear y editar; en alta llega vacío con `isAvailable` en 
 
 Diálogo con el nombre del plato, aviso de que es irreversible, y acción destructiva claramente diferenciada del cancelar.
 
-### Modal de secciones
+### Pestaña de secciones
 
-Lista de secciones existentes con acceso a alta y edición. Campos: nombre en es y en, y sección padre. Mismos estados que el modal de plato. Sin borrado en este hito.
+Contenida dentro de `p-tabpanel` de la pestaña **Secciones**. Muestra la lista/árbol de secciones existentes con opción de alta y edición a través del modal `admin-section-form`. Campos del formulario: nombre en es y en (ambos obligatorios) y sección padre. Mismos estados de validación y guardado que el modal de plato. Sin borrado de secciones en este hito.
 
 ### Móvil (~390px)
 
@@ -216,13 +216,22 @@ La fila y la tarjeta son **el mismo componente**: un `display: grid` que recoloc
 
 ```
 admin-page
-  cabecera: título + nuevo plato + gestionar secciones
-  admin-filters: búsqueda, orden, disponibilidad
-  grupo por sección (nombre de sección)
-    admin-dish-row  ×N
-  estados: cargando / error / vacío
+  cabecera: título + logout
+  p-tabs (TabsModule)
+    p-tablist: tab "Platos" + tab "Secciones"
+    p-tabpanels:
+      p-tabpanel "Platos":
+        botón "Nuevo plato"
+        admin-filters: búsqueda, orden, disponibilidad
+        grupo por sección (nombre de sección)
+          admin-dish-row ×N
+        estados: cargando / error / vacío
+      p-tabpanel "Secciones":
+        botón "Nueva sección"
+        lista / árbol de secciones
+        estados: cargando / error / vacío
   modal plato → admin-dish-form
-  modal secciones → admin-section-form
+  modal sección → admin-section-form
   diálogo de confirmación de borrado
 ```
 
@@ -259,13 +268,13 @@ Los textos van en español directamente, sin envolverlos en constantes ni ficher
 
 | Decisión | Elección |
 |----------|----------|
-| Reparto de pantallas | Una pantalla de platos agrupados por sección; secciones en modal aparte |
-| Edición de plato | Modal, mismo componente para alta y edición |
+| Reparto de pantallas | Pantalla principal con pestañas (`p-tabs` de PrimeNG v21): Pestaña Platos y Pestaña Secciones |
+| Edición de plato | Modal (`admin-dish-form`), mismo componente para alta y edición |
 | Idiomas en el formulario | `SelectButton` para conmutar; un idioma visible a la vez |
 | Traducción faltante | Se mantiene el fallback actual y se avisa en el admin |
 | Borrado de plato | Real, con diálogo de confirmación |
 | Alérgenos | Se asignan en el modal con `MultiSelect` |
-| Secciones | Alta y edición en modal; sin borrado |
+| Secciones | Pestaña dedicada con lista/árbol; alta y edición en modal (`admin-section-form`); sin borrado |
 | Error de guardado | Dentro del modal (`p-message`); toast solo para el éxito |
 | Layout responsivo | Un solo componente de fila con `grid` que se recoloca |
 | `displayOrder` | Automático (máximo + 1 en su ámbito) |
@@ -287,7 +296,7 @@ Los textos van en español directamente, sin envolverlos en constantes ni ficher
 5. Se puede crear un plato con sección, precio, alérgenos y traducciones, y aparece en la carta.
 6. Se puede editar un plato en ambos idiomas mediante el conmutador.
 7. Eliminar un plato pide confirmación y lo quita de la carta.
-8. Se pueden crear y editar secciones, incluida una subsección con sección padre.
+8. Se pueden crear y editar secciones en la pestaña dedicada de secciones mediante su modal (`admin-section-form`), incluida una subsección con sección padre.
 9. Los errores de guardado se muestran dentro del modal y no cierran el formulario.
 10. Los filtros de búsqueda, orden y disponibilidad funcionan en cliente.
 11. La pantalla es usable a ~390px y en escritorio.

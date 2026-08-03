@@ -53,7 +53,8 @@ Coste conocido y aceptado: los `select` de platos y secciones quedan duplicados 
 ## Paso 3 — Pantalla de lectura ⬜
 
 - `admin-page` (SMART) sustituye al stub del Hito 6, conservando el logout.
-- `admin-filters` y `admin-dish-row` (presentational, aún sin acciones de escritura).
+- Navegación por pestañas con PrimeNG `TabsModule` (`p-tabs`): **Platos** y **Secciones**.
+- En la pestaña de Platos: `admin-filters` y `admin-dish-row` (presentational, aún sin acciones de escritura).
 - Estados: cargando, error con reintento, vacío, con datos.
 - CSS: un único componente de fila con `grid` que se recoloca en el breakpoint.
 - **Verificar a ~390px y en escritorio antes de seguir.**
@@ -80,9 +81,10 @@ Las dos tareas más frecuentes, sin abrir formularios:
 - Una sola operación: borrar en `dishes`; traducciones y alérgenos caen por cascada.
 - Acción destructiva visualmente diferenciada del cancelar.
 
-## Paso 7 — Modal de secciones ⬜
+## Paso 7 — Pestaña y modal de secciones ⬜
 
-- `admin-section-form`: nombre en es y en (ambos obligatorios) y selector de sección padre.
+- Contenido de la pestaña "Secciones" (`p-tabpanel value="sections"`): listado / árbol de secciones existentes con botón de creación y acción de edición por sección.
+- `admin-section-form` dentro de un `p-dialog`: nombre en es y en (ambos obligatorios) y selector de sección padre.
 - `slug` derivado del nombre en español, con sufijo numérico si choca con el `UNIQUE`; `displayOrder` automático entre hermanas.
 - Sin borrado en este hito.
 - Recordar que una sección sin platos ni subsecciones no aparece en la carta pública.
@@ -99,7 +101,7 @@ Checklist manual (criterios §12 del spec):
 - [ ] Alta de plato completa (sección, precio, alérgenos, traducciones)
 - [ ] Edición en ambos idiomas con el conmutador
 - [ ] Borrado con confirmación
-- [ ] Alta y edición de sección, incluida una subsección
+- [ ] Alta y edición de sección en la pestaña de secciones, incluida una subsección
 - [ ] Error de guardado dentro del modal, sin cerrarlo
 - [ ] Filtros de búsqueda, orden y disponibilidad
 - [ ] Usable a ~390px y en escritorio
