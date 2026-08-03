@@ -5,6 +5,9 @@ export type {
   LocalizedSection,
   OrderCriteria,
   Allergen,
+  Dish,
+  Section,
+  Translation,
 } from './util/menu.model';
 
 export { menuRoutes } from './feature/menu.routes';

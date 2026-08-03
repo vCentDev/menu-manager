@@ -73,7 +73,7 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 **`shared/api.ts`:** `SupabaseService`, `LanguageService`, `LanguageCode`, `provideSharedI18n`
 
-**`menu/api.ts`:** `MenuService`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`
+**`menu/api.ts`:** `MenuService`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`, `Dish`, `Section`, `Translation`
 
 **`auth/api.ts`:** `authRoutes`, `forbiddenRoutes`, `authGuard`, `adminGuard`
 
@@ -129,6 +129,17 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 - `MenuClient`: lectura pública dishes/sections con traducciones.
 - Esquema/RLS en el proyecto Supabase; no hay carpeta `supabase/` en el repo.
 
+## Cómo hablar con el usuario (modo mentor y en general)
+
+El usuario suele trabajar en modo aprendiz / junior. Prioriza claridad sobre precisión académica.
+
+- Respuestas en **español** (salvo que pida otro idioma).
+- Explica con **palabras sencillas** y ejemplos concretos del propio repo. Evita jerga (`DTO`, `contrato de transporte`, `dominio`, `barrel`, `capa`, `view-model`…) salvo que el usuario ya la use; si hace falta un término técnico, defínelo en una frase antes de seguir.
+- Prefiere analogías cortas (“foto fea de la BD” vs “foto limpia de la app”) a definiciones abstractas.
+- En modo mentor: guía **paso a paso**, qué archivo abrir, qué pegar o mirar, y **por qué** en una o dos frases. No sueltes un bloque largo de arquitectura de golpe.
+- Si algo tiene dos nombres (p. ej. `price_cents` en Supabase y `priceCents` en Angular), dilo así, sin etiquetas de capas.
+- Cuando revises código del usuario: empieza por “qué está bien”, luego el fallo o mejora, luego un ejemplo corto.
+
 ## Convenciones de código
 
 - Componentes **standalone**; imports explícitos en `@Component`.
@@ -136,7 +147,6 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 - PrimeNG v21: importar piezas concretas, no módulo monolítico.
 - Labels dinámicos (p. ej. sort): claves i18n + `computed` que lea `lang()` + `instant()`.
 - Código en inglés (nombres/tipos); UI vía i18n; comentarios solo si aportan.
-- Respuestas al usuario en **español** salvo que pida otro idioma.
 
 ## Qué NO hacer
 

@@ -1,7 +1,13 @@
 <div class="admin-page">
-  <h1>{{ "auth.admin.placeholder" | translate }}</h1>
+  <div class="admin-page__header">
+    <h1 class="admin-page__title">
+      {{ "auth.admin.placeholder" | translate }}
+    </h1>
 
-  <button type="button" pButton (click)="onLogout()">
-    {{ "auth.logout" | translate }}
-  </button>
+    <button type="button" pButton (click)="onLogout()">
+      {{ "auth.logout" | translate }}
+    </button>
+  </div>
+
+  <div class="admin-page__items"></div>
 </div>

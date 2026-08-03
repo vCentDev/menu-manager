@@ -1,0 +1,8 @@
+.admin-page {
+  display: grid;
+  place-items: center;
+}
+
+.admin-page__header {
+  text-align: center;
+}

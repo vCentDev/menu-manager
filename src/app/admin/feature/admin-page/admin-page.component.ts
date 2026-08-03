@@ -10,6 +10,7 @@ import { SupabaseService } from '@shared/api';
   selector: 'app-admin-page',
   imports: [TranslatePipe, ButtonModule],
   templateUrl: './admin-page.component.html',
+  styleUrl: './admin-page.component.css',
 })
 export class AdminPageComponent {
   private readonly supabase = inject(SupabaseService);
