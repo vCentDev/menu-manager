@@ -28,7 +28,7 @@ Consecuencia del hallazgo del Paso 0; va antes de escribir nada, porque condicio
 
 Nota: no hay trigger sobre `auth.users`, así que un usuario registrado no tiene fila en `profiles`. Es seguro por defecto (sin fila, `is_admin()` es falso), pero dar acceso a alguien nuevo del staff exige crear su fila a mano en el dashboard.
 
-## Paso 1 — Datos: modelos, cliente y mappers ⬜
+## Paso 1 — Datos: modelos, cliente y mappers ✅
 
 Decisiones del paso: se comparte el **modelo de dominio**, no el **contrato de transporte**. Y solo se define lo que consumen los Pasos 2 y 3: los DTOs de escritura llegan en el paso que los usa, cuando el formulario haya fijado su forma real.
 
@@ -38,9 +38,9 @@ Decisiones del paso: se comparte el **modelo de dominio**, no el **contrato de t
 - `admin/util/price.ts`: `centsToEuros` para la lista. `eurosToCents` (`Math.round(euros * 100)`, el único punto de redondeo) se añade en el Paso 4, con el input que la alimenta.
 - `admin/data/admin.type.ts`: tipos `Raw*` propios, duplicados de `menu.type.ts` a propósito. El transporte va pegado a los `select` de cada cliente y no viaja por un barrel.
 - `admin/data/admin.mapper.ts`: raw → tipos de `@menu/api`, patrón de `menu.mapper.ts`.
-- `admin/data/admin.client.ts`: `getDishes()` (todos, también los no disponibles), `getSections()` (todas, incluidas las vacías) y `getAllergens()` (catálogo completo para el `MultiSelect`), ordenados por `display_order`. Los errores se lanzan; los captura el store en el Paso 2.
+- `admin/data/admin.client.ts`: `getDishes()` (todos, también los no disponibles), `getSections()` (todas, incluidas las vacías) y `getAllergens()` (catálogo completo para el `MultiSelect`), ordenados por `display_order` / `code`. Los errores se lanzan; los captura el store en el Paso 2.
 - `admin/api.ts` no cambia: cliente y store son internos del dominio.
-- Sin UI todavía: la verificación de este paso es que `pnpm build` pase; la prueba real llega en el Paso 3.
+- Verificado: `pnpm build` sin errores. La prueba visual llega en el Paso 3.
 
 Coste conocido y aceptado: los `select` de platos y secciones quedan duplicados entre `MenuClient` y `AdminClient`, así que un cambio de esquema obliga a tocar los dos.
 
