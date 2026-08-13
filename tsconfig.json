@@ -5,12 +5,12 @@
   "compilerOptions": {
     "rootDir": "./src",
     "paths": {
-      "@app/*": ["./src/app/*"],
       "@menu/*": ["./src/app/menu/*"],
       "@shared/*": ["./src/app/shared/*"],
       "@admin/*": ["./src/app/admin/*"],
       "@auth/*": ["./src/app/auth/*"],
-      "@env/*": ["./src/environments/*"]
+      "@env/*": ["./src/environments/*"],
+      "@app/*": ["./src/app/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
