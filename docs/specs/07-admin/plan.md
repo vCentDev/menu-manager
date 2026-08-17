@@ -1,6 +1,6 @@
 # Plan — Hito 7: Admin MVP
 
-Orden de trabajo sugerido. Contrato y criterios → [`spec.md`](./spec.md).  
+Orden de trabajo sugerido. Contrato y criterios → `[spec.md](./spec.md)`.  
 Actualiza el estado de cada paso (`⬜` / `🔄` / `✅`) al avanzar.
 
 Regla del hito: **cada paso deja la aplicación funcionando**. Primero se lee, después se escribe.
@@ -11,7 +11,7 @@ Regla del hito: **cada paso deja la aplicación funcionando**. Primero se lee, d
 2. **Esquema en Supabase (verificado).** Tabla de unión: `dish_allergens`, PK `(dish_id, allergen_id)`, cascada desde `dishes` y `allergens`. Traducciones con `UNIQUE (entidad, language_code)` → `upsert` con `onConflict`. `languages` solo tiene `es` y `en`. Detalle completo en la spec (§5, «Reglas derivadas del esquema»).
 3. **Autorización.** Las políticas de escritura exigen `is_admin()`, no solo sesión, y `profiles` no era legible desde el cliente (RLS activo sin políticas). Se añade política `SELECT` en `profiles` para `id = auth.uid()` y un `adminGuard` → resuelto en el Paso 0b.
 4. **Escritura multi-tabla.** Secuencia ordenada desde `AdminClient` (sin RPC): `dishes` → `dish_translations` → `dish_allergens`. Un fallo a medias deja el plato incompleto pero corregible desde el panel.
-5. **Dónde vive el estado.** `AdminStore` en `admin/data/admin.store.ts` con signals y computed, patrón de `MenuService`, pero **provisto en la ruta de `admin`** (no `root`) para que se destruya al salir del panel. Las mutaciones y el optimismo viven en el store; `admin-page` solo orquesta.
+5. **Dónde vive el estado.** `AdminStore` en `admin/data/admin.store.ts` con signals y computed, patrón de `MenuService`, pero **provisto en la ruta de** `admin` (no `root`) para que se destruya al salir del panel. Las mutaciones y el optimismo viven en el store; `admin-page` solo orquesta.
 
 ## Paso 0b — Autorización por rol ✅
 
@@ -34,7 +34,7 @@ Decisiones del paso: se comparte el **modelo de dominio**, no el **contrato de t
 
 - `menu/api.ts`: exportar los tipos `Dish`, `Section` y `Translation` (`Allergen` ya sale). Nada más: ni mappers, ni `menu.type.ts`, ni las funciones de `menu-localization.ts`.
 - `admin/util/admin.model.ts`: modelo de vista de la lista, `AdminDishRow` con `name` ya resuelto y `missingLanguages: LanguageCode[]` (una lista, no un booleano: el staff necesita saber **qué** idioma falta).
-- `admin/util/admin-translation.ts`: `resolveAdminName` (español con fallback a inglés) y `findMissingLanguages`. Regla fijada: **un idioma falta cuando no tiene `name`**; la `description` es opcional en la carta y no cuenta como incompleto, o el aviso perdería significado.
+- `admin/util/admin-translation.ts`: `resolveAdminName` (español con fallback a inglés) y `findMissingLanguages`. Regla fijada: **un idioma falta cuando no tiene** `name`; la `description` es opcional en la carta y no cuenta como incompleto, o el aviso perdería significado.
 - `admin/util/price.ts`: `centsToEuros` para la lista. `eurosToCents` (`Math.round(euros * 100)`, el único punto de redondeo) se añade en el Paso 4, con el input que la alimenta.
 - `admin/data/admin.type.ts`: tipos `Raw*` propios, duplicados de `menu.type.ts` a propósito. El transporte va pegado a los `select` de cada cliente y no viaja por un barrel.
 - `admin/data/admin.mapper.ts`: raw → tipos de `@menu/api`, patrón de `menu.mapper.ts`.
@@ -44,7 +44,7 @@ Decisiones del paso: se comparte el **modelo de dominio**, no el **contrato de t
 
 Coste conocido y aceptado: los `select` de platos y secciones quedan duplicados entre `MenuClient` y `AdminClient`, así que un cambio de esquema obliga a tocar los dos.
 
-## Paso 2 — Store de admin (solo lectura) ⬜
+## Paso 2 — Store de admin (solo lectura) ✅
 
 - Signals: `dishes`, `sections`, `allergens`, `status` (idle | loading | ready | error).
 - Computed: agrupación de platos por sección respetando la jerarquía, y filtros en cliente (búsqueda, orden por precio o nombre, disponibilidad).

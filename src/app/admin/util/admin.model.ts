@@ -9,3 +9,20 @@ export interface AdminDishRow {
   displayOrder: number;
   missingLanguages: LanguageCode[];
 }
+
+export interface AdminSectionNode {
+  id: string;
+  name: string;
+  displayOrder: number;
+  dishes: AdminDishRow[];
+  children: AdminSectionNode[];
+}
+
+export type AdminSortCriteria =
+  | 'default'
+  | 'price-asc'
+  | 'price-desc'
+  | 'name-asc'
+  | 'name-desc';
+
+export type AdminAvailabilityFilter = 'all' | 'available' | 'unavailable';

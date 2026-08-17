@@ -5,7 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 
 import { SupabaseService } from '@shared/api';
-import { AdminClient } from '../../data/admin.client';
+import { AdminService } from '@admin/data/admin.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -16,10 +16,10 @@ import { AdminClient } from '../../data/admin.client';
 export class AdminPageComponent implements OnInit {
   private readonly supabase = inject(SupabaseService);
   private readonly router = inject(Router);
-  private readonly adminClient = inject(AdminClient);
+  protected readonly adminService = inject(AdminService);
 
   ngOnInit(): void {
-    this.adminClient.getAllergens();
+    this.adminService.load();
   }
 
   protected async onLogout(): Promise<void> {
