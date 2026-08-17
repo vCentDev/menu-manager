@@ -87,7 +87,8 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 ## i18n
 
-- **Chrome UI** → `public/i18n/{es,en}.json`, pipe `translate` o `TranslateService.instant()`.
+- **Chrome UI** → `public/i18n/{es,en}.json` (`menu.*`, `filters.*`, `dish.*`, `auth.*`, `admin.*`), pipe `translate` o `TranslateService.instant()`.
+- **Panel admin** → claves `admin.*` (sección propia, no bajo `auth`). `admin-page` inyecta `LanguageService` para que el idioma guardado se aplique al entrar al panel. Logout reutiliza `auth.logout`.
 - **Contenido de carta** → Supabase + localización en `menu/` (**no** ngx-translate).
 - **`LanguageService`** = fuente de verdad (`lang` + `localStorage`); sync con `translate.use()` vía `effect`.
 - **`provideSharedI18n()`** en `shared/data/i18n.providers.ts`; `provideHttpClient()` en `app.config.ts`.

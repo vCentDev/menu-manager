@@ -21,7 +21,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 - Spec y plan ya escritos en `docs/specs/07-admin/`.
 - CRUD secciones y platos detrás de `authGuard`.
 - Sustituir el stub `admin-page` por la pantalla real.
-- Panel **solo en español** (sin `ngx-translate`); UI alineada al tema Aura noir/slate.
+- Panel con chrome i18n (`admin.*` en `public/i18n/{es,en}.json`); UI alineada al tema Aura noir/slate.
 
 ## Roadmap
 
@@ -88,7 +88,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 3. CRUD **secciones**: nombre es/en, jerarquía (`parentId`), `slug` y orden automáticos
 4. CRUD **platos**: precio, sección, traducciones, alérgenos, `imageUrl` opcional, disponibilidad
 5. Interacciones rápidas en la lista: toggle de disponibilidad y precio en línea
-6. UI en español, adaptable a móvil, alineada al tema Aura noir/slate
+6. UI con ngx-translate (`admin.*`), adaptable a móvil, alineada al tema Aura noir/slate
 
 #### Hito 8+ (ideas, no comprometidas)
 - Subida de imágenes a Storage
@@ -112,7 +112,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 | Auth facade | Sin `AuthService`; features usan `SupabaseService` directo |
 | Criterio del guard | Hay sesión (`getSession()`); sin roles/`profiles` en Hito 6 |
 | Stub admin | Placeholder + logout en Hito 6; CRUD en Hito 7 |
-| Idioma del panel admin | Solo español, sin `ngx-translate`; la carta pública sigue ES/EN |
+| Idioma del panel admin | ngx-translate; claves `admin.*` (no bajo `auth`); contenido de platos/secciones sigue en Supabase |
 
 ## Deuda / mejoras menores conocidas
 
@@ -120,7 +120,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 - No hay carpeta `supabase/` de migraciones en el repo (esquema gestionado fuera).
 - `README.md` aún es plantilla Angular CLI — actualizar cuando convenga.
 - Stub `admin-page` sin estilos dedicados (aceptable hasta Hito 7).
-- Las rutas de `auth/` (`/login`, `/forbidden`) se ven siempre en español aunque `localStorage.lang` sea `en`: `LanguageService` solo se instancia en `menu-page` / `MenuService`, así que nadie llama a `translate.use()` y ngx-translate usa `fallbackLang: 'es'`. Preexistente desde el Hito 6; de bajo impacto, porque el panel es solo español por decisión.
+- Las rutas de `auth/` (`/login`, `/forbidden`) se ven siempre en español aunque `localStorage.lang` sea `en`: `LanguageService` solo se instancia en `menu-page` / `MenuService` (y, en el Hito 7, en `admin-page`). Sin esa instancia, ngx-translate usa `fallbackLang: 'es'`. Preexistente desde el Hito 6.
 
 ## Cómo retomar en un chat nuevo
 

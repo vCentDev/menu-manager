@@ -51,7 +51,6 @@ La frecuencia manda en el diseño: las tareas 1 y 2 se resuelven **en la propia 
 - Crear o editar el catálogo de alérgenos (solo se asignan los existentes).
 - Descripción de sección (existe en el modelo, no se usa en la carta).
 - Roles o permisos más finos que `admin` / `viewer` (no hay gestión de usuarios ni de roles desde el panel).
-- Traducción de la interfaz del panel: los textos van en español, escritos directamente en las plantillas.
 
 ## 5. Datos por entidad
 
@@ -253,16 +252,21 @@ Nombres BEM siguiendo la convención del proyecto (bloque = componente, como `.d
 
 ## 10. Idioma de la interfaz
 
-El panel es **solo en español**. No se añaden claves `admin.*` a `public/i18n/{es,en}.json` ni se usa `ngx-translate` en los componentes de `admin/`: los textos (títulos, etiquetas, botones, validaciones, confirmaciones y mensajes de error) van escritos en las plantillas.
+El chrome del panel (títulos, pestañas, filtros, estados, etiquetas de fila, validaciones, confirmaciones y errores) usa **ngx-translate**, igual que la carta y el login. Las claves viven en `public/i18n/{es,en}.json` bajo **`admin.*`**, al mismo nivel que `menu.*` y `auth.*` — no colgando de `auth`.
 
-Motivo: el staff del restaurante trabaja en español y el panel no es público, así que la traducción sería coste sin beneficio.
+Motivo: Casa Mateu trabaja en español, pero el mismo proyecto puede servir a clientes de fuera; tener las claves desde el Hito 7 evita extraer textos de las plantillas después.
 
-Dos cosas siguen siendo bilingües y no cambian:
+Reglas:
 
-- El **contenido de la carta**: `name` y `description` de platos y secciones se editan en es y en, con el conmutador del modal.
-- La **carta pública** (`menu/`), que mantiene su i18n con `ngx-translate` intacta.
+- Plantillas con pipe `translate` o `TranslateService.instant()` (el mismo patrón que `menu-filters` para las opciones de `p-select` / `p-selectbutton`: claves fijas + `computed` que lee `lang()`).
+- `admin-page` inyecta `LanguageService` para que `translate.use()` se aplique al entrar a `/admin` sin pasar por la carta.
+- Logout reutiliza `auth.logout` (ya existe en ES/EN).
+- Cada clave nueva se añade a la vez en `es.json` y `en.json`.
 
-Los textos van en español directamente, sin envolverlos en constantes ni ficheros aparte. Si algún día el panel necesita otro idioma, se extraen entonces.
+Dos cosas siguen siendo bilingües y **no** van al JSON:
+
+- El **contenido de la carta**: `name` y `description` de platos y secciones se editan en es y en, con el conmutador del modal, y se leen de Supabase.
+- La **carta pública** (`menu/`), que mantiene su i18n de chrome (`menu.*`, `filters.*`, `dish.*`) intacta.
 
 ## 11. Decisiones tomadas
 
@@ -280,7 +284,7 @@ Los textos van en español directamente, sin envolverlos en constantes ni ficher
 | `displayOrder` | Automático (máximo + 1 en su ámbito) |
 | `slug` | Derivado del nombre en español, no editable |
 | Toggle disponibilidad | Optimista con reversión |
-| Idioma de la interfaz | Solo español, sin `ngx-translate` en `admin/` |
+| Idioma de la interfaz | ngx-translate; claves `admin.*` en `public/i18n/{es,en}.json` (no bajo `auth`) |
 | Modelos de lectura | Reutilizados de `@menu/api` (se amplían sus exports); escritura y vista en `admin/util` |
 | Autorización | Política `SELECT` en `profiles` + `adminGuard` en `auth/`, además de `authGuard` |
 | Escritura multi-tabla | Secuencia ordenada desde `AdminClient` (sin RPC); fallo parcial benigno y corregible desde el panel |
@@ -300,7 +304,7 @@ Los textos van en español directamente, sin envolverlos en constantes ni ficher
 9. Los errores de guardado se muestran dentro del modal y no cierran el formulario.
 10. Los filtros de búsqueda, orden y disponibilidad funcionan en cliente.
 11. La pantalla es usable a ~390px y en escritorio.
-12. La interfaz del panel está en español; la carta pública mantiene ES/EN sin regresiones.
+12. La interfaz del panel usa claves `admin.*` (ES/EN); la carta pública mantiene ES/EN sin regresiones.
 13. Imports respetan barrels (`@shared/api`, `@admin/api`); sin ciclos.
 14. `pnpm build` sin errores.
 
@@ -311,7 +315,7 @@ Los textos van en español directamente, sin envolverlos en constantes ni ficher
 - **Caché de la carta pública:** `MenuService` recarga en `ngOnInit`, así que los cambios se ven al volver a `/`. Si en el futuro se cachea, habrá que invalidar.
 - **Céntimos:** cualquier redondeo en euros debe hacerse en un único punto del código para evitar desfases.
 - **Secciones sin contenido:** son invisibles en la carta por diseño de `buildMenuTree`; no es un bug.
-- **Textos en español en plantillas:** es una decisión consciente, no un descuido. Queda como deuda conocida si el panel llegara a necesitar otro idioma.
+- **Idioma al entrar directo a `/admin`:** `LanguageService` debe instanciarse en `admin-page`; si no, ngx-translate se queda en `fallbackLang: 'es'` aunque `localStorage.lang` sea `en` (deuda conocida en login/forbidden, Hito 6).
 
 ## 14. Definición de hecho
 

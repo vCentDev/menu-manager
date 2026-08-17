@@ -52,12 +52,13 @@ Coste conocido y aceptado: los `select` de platos y secciones quedan duplicados 
 
 ## Paso 3 — Pantalla de lectura ⬜
 
-- `admin-page` (SMART) sustituye al stub del Hito 6, conservando el logout.
+- `admin-page` (SMART) sustituye al stub del Hito 6, conservando el logout. Inyecta `LanguageService` para que el idioma guardado se aplique al panel.
+- Chrome vía ngx-translate: claves `admin.*` en `public/i18n/{es,en}.json` (sección propia, no bajo `auth`). Logout sigue en `auth.logout`.
 - Navegación por pestañas con PrimeNG `TabsModule` (`p-tabs`): **Platos** y **Secciones**.
 - En la pestaña de Platos: `admin-filters` y `admin-dish-row` (presentational, aún sin acciones de escritura).
 - Estados: cargando, error con reintento, vacío, con datos.
 - CSS: un único componente de fila con `grid` que se recoloca en el breakpoint.
-- **Verificar a ~390px y en escritorio antes de seguir.**
+- **Verificar a ~390px y en escritorio, y en ES/EN, antes de seguir.**
 
 ## Paso 4 — Mutaciones rápidas en la lista ⬜
 
@@ -106,6 +107,7 @@ Checklist manual (criterios §12 del spec):
 - [ ] Filtros de búsqueda, orden y disponibilidad
 - [ ] Usable a ~390px y en escritorio
 - [ ] Carta pública sin regresiones en ES/EN
+- [ ] Panel admin en ES/EN vía claves `admin.*`
 - [ ] `pnpm build`
 - [ ] Actualizar `docs/PROJECT.md` (Admin ✅) y `AGENTS.md` (exports de `admin/api.ts`)
 
