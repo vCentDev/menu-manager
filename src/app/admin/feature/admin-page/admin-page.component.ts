@@ -6,10 +6,11 @@ import { ButtonModule } from 'primeng/button';
 
 import { SupabaseService } from '@shared/api';
 import { AdminService } from '@admin/data/admin.service';
+import { AdminFiltersComponent } from '@admin/ui/admin-filters/admin-filters.component';
 
 @Component({
   selector: 'app-admin-page',
-  imports: [TranslatePipe, ButtonModule],
+  imports: [TranslatePipe, ButtonModule, AdminFiltersComponent],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css',
 })

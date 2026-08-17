@@ -1,0 +1,27 @@
+<article class="admin-filters">
+  <div class="admin-filters__toolbar">
+    <div class="admin-filters__search">
+      <p-iconfield>
+        <p-inputicon>
+          <svg data-p-icon="search"></svg>
+        </p-inputicon>
+        <input
+          type="text"
+          pInputText
+          [placeholder]="'admin.filters.search' | translate"
+          pSize="small"
+        />
+      </p-iconfield>
+    </div>
+
+    <div class="admin-filters__controls">
+      <p-selectbutton
+        [options]="sortOptions()"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="sort"
+        size="small"
+      />
+    </div>
+  </div>
+</article>

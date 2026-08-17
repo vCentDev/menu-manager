@@ -1,8 +1,10 @@
 <div class="admin-page">
   <div class="admin-page__header">
     <h1 class="admin-page__title">
-      {{ "auth.admin.placeholder" | translate }}
+      {{ "admin.title" | translate }}
     </h1>
+
+    <app-admin-filters />
 
     <button type="button" pButton (click)="onLogout()">
       {{ "auth.logout" | translate }}
