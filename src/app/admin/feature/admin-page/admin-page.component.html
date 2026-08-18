@@ -4,7 +4,15 @@
       {{ "admin.title" | translate }}
     </h1>
 
-    <app-admin-filters />
+    <app-admin-filters
+      [search]="adminService.searchQuery()"
+      (searchChange)="adminService.setSearch($event)"
+      [sort]="adminService.sortCriteria()"
+      (sortChange)="adminService.setSort($event)"
+      [availability]="adminService.dishAvailability()"
+      (availabilityChange)="adminService.setAvailabilityFilter($event)"
+      [lang]="languageService.lang()"
+    />
 
     <button type="button" pButton (click)="onLogout()">
       {{ "auth.logout" | translate }}

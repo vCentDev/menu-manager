@@ -9,6 +9,7 @@
           type="text"
           pInputText
           [placeholder]="'admin.filters.search' | translate"
+          [(ngModel)]="search"
           pSize="small"
         />
       </p-iconfield>
@@ -21,6 +22,16 @@
         optionValue="value"
         [(ngModel)]="sort"
         size="small"
+        allowEmpty="false"
+      />
+
+      <p-selectbutton
+        [options]="availabilityOptions()"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="availability"
+        size="small"
+        allowEmpty="false"
       />
     </div>
   </div>

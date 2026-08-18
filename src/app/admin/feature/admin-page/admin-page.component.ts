@@ -4,7 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { ButtonModule } from 'primeng/button';
 
-import { SupabaseService } from '@shared/api';
+import { LanguageService, SupabaseService } from '@shared/api';
 import { AdminService } from '@admin/data/admin.service';
 import { AdminFiltersComponent } from '@admin/ui/admin-filters/admin-filters.component';
 
@@ -18,6 +18,7 @@ export class AdminPageComponent implements OnInit {
   private readonly supabase = inject(SupabaseService);
   private readonly router = inject(Router);
   protected readonly adminService = inject(AdminService);
+  protected readonly languageService = inject(LanguageService);
 
   ngOnInit(): void {
     this.adminService.load();
