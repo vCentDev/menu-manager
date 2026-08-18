@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+.admin-page__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.admin-page__group--nested {
+  padding-inline-start: 1rem;
+  margin-block-start: 0.75rem;
+}
+
+.admin-page__group-title {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--p-primary-color);
+  margin: 0 0 0.5rem;
+}
+
+h2.admin-page__group-title {
+  font-size: 1.25rem;
+}
+
+h3.admin-page__group-title {
+  font-size: 1.0625rem;
+}
+
+.admin-page__group-empty {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--p-text-muted-color);
+}

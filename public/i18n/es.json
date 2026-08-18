@@ -60,6 +60,7 @@
     "groupEmpty": "Sin platos",
     "filters": {
       "search": "Buscar plato",
+      "sortLabel": "Orden",
       "sort": {
         "default": "Por defecto",
         "priceAsc": "Precio ↑",

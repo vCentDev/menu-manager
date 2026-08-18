@@ -60,6 +60,7 @@
     "groupEmpty": "No dishes",
     "filters": {
       "search": "Search dish",
+      "sortLabel": "Sort",
       "sort": {
         "default": "Menu order",
         "priceAsc": "Price: low to high",

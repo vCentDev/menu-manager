@@ -1,23 +1,84 @@
 <div class="admin-page">
-  <div class="admin-page__header">
-    <h1 class="admin-page__title">
-      {{ "admin.title" | translate }}
-    </h1>
+  <header class="admin-page__header">
+    <h1 class="admin-page__title">{{ "admin.title" | translate }}</h1>
 
-    <app-admin-filters
-      [search]="adminService.searchQuery()"
-      (searchChange)="adminService.setSearch($event)"
-      [sort]="adminService.sortCriteria()"
-      (sortChange)="adminService.setSort($event)"
-      [availability]="adminService.dishAvailability()"
-      (availabilityChange)="adminService.setAvailabilityFilter($event)"
-      [lang]="languageService.lang()"
+    <p-button
+      severity="secondary"
+      [outlined]="true"
+      [label]="'auth.logout' | translate"
+      (onClick)="onLogout()"
     />
+  </header>
 
-    <button type="button" pButton (click)="onLogout()">
-      {{ "auth.logout" | translate }}
-    </button>
+  <div class="admin-page__sheet">
+    @if (adminService.status() === "loading" || adminService.status() === "idle") {
+      <div class="admin-page__state">
+        <p-progress-spinner [ariaLabel]="'admin.loading' | translate" />
+      </div>
+    } @else if (adminService.status() === "error") {
+      <div class="admin-page__state admin-page__state--error">
+        <p-message severity="error" variant="outlined">{{
+          "admin.error" | translate
+        }}</p-message>
+        <button type="button" pButton (click)="adminService.load()">
+          {{ "admin.retry" | translate }}
+        </button>
+      </div>
+    } @else if (adminService.status() === "ready") {
+      <p-tabs value="dishes">
+        <p-tablist>
+          <p-tab value="dishes">{{ "admin.tabs.dishes" | translate }}</p-tab>
+          <p-tab value="sections">{{ "admin.tabs.sections" | translate }}</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+          <p-tabpanel value="dishes">
+            <app-admin-filters
+              [search]="adminService.searchQuery()"
+              (searchChange)="adminService.setSearch($event)"
+              [sort]="adminService.sortCriteria()"
+              (sortChange)="adminService.setSort($event)"
+              [availability]="adminService.dishAvailability()"
+              (availabilityChange)="adminService.setAvailabilityFilter($event)"
+              [lang]="languageService.lang()"
+            />
+
+            @if (
+              adminService.dishRows().length > 0 &&
+              adminService.filteredRows().length === 0
+            ) {
+              <p-message
+                class="admin-page__empty"
+                severity="secondary"
+                variant="outlined"
+              >
+                {{ "admin.emptyFiltered" | translate }}
+              </p-message>
+            } @else if (adminService.groupedSections().length === 0) {
+              <p-message
+                class="admin-page__empty"
+                severity="secondary"
+                variant="outlined"
+              >
+                {{ "admin.empty" | translate }}
+              </p-message>
+            } @else {
+              <div class="admin-page__list">
+                @for (
+                  node of adminService.groupedSections();
+                  track node.id
+                ) {
+                  <app-admin-section-group [node]="node" />
+                }
+              </div>
+            }
+          </p-tabpanel>
+          <p-tabpanel value="sections">
+            <p class="admin-page__placeholder">
+              {{ "admin.sectionsPlaceholder" | translate }}
+            </p>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+    }
   </div>
-
-  <div class="admin-page__items"></div>
 </div>

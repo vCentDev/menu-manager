@@ -7,23 +7,25 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Search } from '@primeicons/angular/search';
+import { Times } from '@primeicons/angular/times';
 
+import type { LanguageCode } from '@shared/api';
 import type {
   AdminAvailabilityFilter,
   AdminSortCriteria,
 } from '../../util/admin.model';
-import { LanguageService } from '@shared/api';
 
 @Component({
   selector: 'app-admin-filters',
   imports: [
+    FormsModule,
     IconFieldModule,
     InputIconModule,
     InputTextModule,
     Search,
+    Times,
     SelectButtonModule,
     TranslatePipe,
-    FormsModule,
   ],
   templateUrl: './admin-filters.component.html',
   styleUrl: './admin-filters.component.css',
@@ -34,9 +36,9 @@ export class AdminFiltersComponent {
   readonly search = model('');
   readonly sort = model<AdminSortCriteria>('default');
   readonly availability = model<AdminAvailabilityFilter>('all');
-  readonly lang = input<'es' | 'en'>('es');
+  readonly lang = input<LanguageCode>('es');
 
-  private readonly sortOptionsDef = [
+  private readonly sortOptionDefs = [
     { value: 'default' as const, labelKey: 'admin.filters.sort.default' },
     { value: 'price-asc' as const, labelKey: 'admin.filters.sort.priceAsc' },
     { value: 'price-desc' as const, labelKey: 'admin.filters.sort.priceDesc' },
@@ -46,13 +48,13 @@ export class AdminFiltersComponent {
 
   protected readonly sortOptions = computed(() => {
     this.lang();
-    return this.sortOptionsDef.map((def) => ({
+    return this.sortOptionDefs.map((def) => ({
       value: def.value,
       label: this.translate.instant(def.labelKey),
     }));
   });
 
-  private readonly avalabilityOptionsDef = [
+  private readonly availabilityOptionDefs = [
     { value: 'all' as const, labelKey: 'admin.filters.availability.all' },
     {
       value: 'available' as const,
@@ -66,7 +68,7 @@ export class AdminFiltersComponent {
 
   protected readonly availabilityOptions = computed(() => {
     this.lang();
-    return this.avalabilityOptionsDef.map((def) => ({
+    return this.availabilityOptionDefs.map((def) => ({
       value: def.value,
       label: this.translate.instant(def.labelKey),
     }));

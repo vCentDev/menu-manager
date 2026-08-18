@@ -50,7 +50,7 @@ Coste conocido y aceptado: los `select` de platos y secciones quedan duplicados 
 - Computed: agrupación de platos por sección respetando la jerarquía, y filtros en cliente (búsqueda, orden por precio o nombre, disponibilidad).
 - Detectar traducción incompleta para poder avisar en la lista.
 
-## Paso 3 — Pantalla de lectura ⬜
+## Paso 3 — Pantalla de lectura ✅
 
 - `admin-page` (SMART) sustituye al stub del Hito 6, conservando el logout. Inyecta `LanguageService` para que el idioma guardado se aplique al panel.
 - Chrome vía ngx-translate: claves `admin.*` en `public/i18n/{es,en}.json` (sección propia, no bajo `auth`). Logout sigue en `auth.logout`.
