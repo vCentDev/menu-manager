@@ -57,4 +57,33 @@ export class AdminClient {
 
     return allergens;
   }
+
+  async updatePrice(dishId: string, priceCents: number): Promise<void> {
+    const { error } = await this.db.supabase
+      .from('dishes')
+      .update({
+        price_cents: priceCents,
+      })
+      .eq('id', dishId)
+      .select('id')
+      .single();
+
+    if (error) throw error;
+  }
+
+  async updateAvailability(
+    dishId: string,
+    isAvailable: boolean,
+  ): Promise<void> {
+    const { error } = await this.db.supabase
+      .from('dishes')
+      .update({
+        is_available: isAvailable,
+      })
+      .eq('id', dishId)
+      .select('id')
+      .single();
+
+    if (error) throw error;
+  }
 }

@@ -3,6 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import type { Allergen, Dish, Section } from '@menu/api';
 import { AdminClient } from './admin.client';
 import { buildAdminTree } from '../util/admin-tree';
+import { eurosToCents } from '../util/price';
 import {
   matchesAdminSearch,
   matchesAvailability,
@@ -82,6 +83,51 @@ export class AdminService {
     } catch (error) {
       this._error.set('No se pudo cargar el panel');
       this._status.set('error');
+    }
+  }
+
+  private replaceDish(updated: Dish): void {
+    this._dishes.update((dishes) =>
+      dishes.map((dish) => (dish.id === updated.id ? updated : dish)),
+    );
+  }
+
+  async setDishAvailability(
+    dishId: string,
+    isAvailable: boolean,
+  ): Promise<void> {
+    const currentDish = this.dishes().find((dish) => dish.id === dishId);
+    if (!currentDish || currentDish.isAvailable === isAvailable) return;
+
+    this.replaceDish({ ...currentDish, isAvailable });
+
+    try {
+      await this.adminClient.updateAvailability(dishId, isAvailable);
+    } catch (error) {
+      const latest = this.dishes().find((dish) => dish.id === dishId);
+      if (latest) {
+        this.replaceDish({ ...latest, isAvailable: currentDish.isAvailable });
+      }
+      throw error;
+    }
+  }
+
+  async setDishPrice(dishId: string, euros: number): Promise<void> {
+    const currentDish = this.dishes().find((dish) => dish.id === dishId);
+    const cents = eurosToCents(euros);
+
+    if (!currentDish || currentDish.priceCents === cents) return;
+
+    this.replaceDish({ ...currentDish, priceCents: cents });
+
+    try {
+      await this.adminClient.updatePrice(dishId, cents);
+    } catch (error) {
+      const latest = this.dishes().find((dish) => dish.id === dishId);
+      if (latest) {
+        this.replaceDish({ ...latest, priceCents: currentDish.priceCents });
+      }
+      throw error;
     }
   }
 
