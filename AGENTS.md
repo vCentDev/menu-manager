@@ -73,7 +73,7 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 **`shared/api.ts`:** `SupabaseService`, `LanguageService`, `LanguageCode`, `provideSharedI18n`
 
-**`menu/api.ts`:** `MenuService`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`, `Dish`, `Section`, `Translation`
+**`menu/api.ts`:** `MenuStore`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`, `Dish`, `Section`, `Translation`
 
 **`auth/api.ts`:** `authRoutes`, `forbiddenRoutes`, `authGuard`, `adminGuard`
 
@@ -104,12 +104,12 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 | Componente | Rol |
 |------------|-----|
-| `menu-page` | SMART: `MenuService` + `LanguageService` |
+| `menu-page` | SMART: `MenuStore` + `LanguageService` |
 | `menu-filters` | PRESENTATIONAL: `model()` search/sort/lang; I/O allergens |
 | `menu-section` | PRESENTATIONAL recursivo |
 | `dish-card` | PRESENTATIONAL; leader punteado nombre→precio |
 
-**MenuService:** pipeline `dishes + lang → localizedDishes → visibleDishes → menuTree`. Filtros en cliente. Alérgenos = **excluir**. Orden precio **por sección**.
+**MenuStore:** pipeline `dishes + lang → localizedDishes → visibleDishes → menuTree`. Filtros en cliente. Alérgenos = **excluir**. Orden precio **por sección**.
 
 **Layout:** cabecera editorial + hoja (`menu-page__sheet`); banda filtros con `--sheet-padding-inline`.
 

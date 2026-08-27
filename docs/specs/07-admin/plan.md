@@ -11,7 +11,7 @@ Regla del hito: **cada paso deja la aplicación funcionando**. Primero se lee, d
 2. **Esquema en Supabase (verificado).** Tabla de unión: `dish_allergens`, PK `(dish_id, allergen_id)`, cascada desde `dishes` y `allergens`. Traducciones con `UNIQUE (entidad, language_code)` → `upsert` con `onConflict`. `languages` solo tiene `es` y `en`. Detalle completo en la spec (§5, «Reglas derivadas del esquema»).
 3. **Autorización.** Las políticas de escritura exigen `is_admin()`, no solo sesión, y `profiles` no era legible desde el cliente (RLS activo sin políticas). Se añade política `SELECT` en `profiles` para `id = auth.uid()` y un `adminGuard` → resuelto en el Paso 0b.
 4. **Escritura multi-tabla.** Secuencia ordenada desde `AdminClient` (sin RPC): `dishes` → `dish_translations` → `dish_allergens`. Un fallo a medias deja el plato incompleto pero corregible desde el panel.
-5. **Dónde vive el estado.** `AdminStore` en `admin/data/admin.store.ts` con signals y computed, patrón de `MenuService`, pero **provisto en la ruta de** `admin` (no `root`) para que se destruya al salir del panel. Las mutaciones y el optimismo viven en el store; `admin-page` solo orquesta.
+5. **Dónde vive el estado.** `AdminStore` en `admin/data/admin.store.ts` con signals y computed, patrón de `MenuStore`, pero **provisto en la ruta de** `admin` (no `root`) para que se destruya al salir del panel. Las mutaciones y el optimismo viven en el store; `admin-page` solo orquesta.
 
 ## Paso 0b — Autorización por rol ✅
 

@@ -80,6 +80,9 @@
       "available": "Available",
       "unavailable": "Unavailable",
       "missingLang": "Missing {{lang}}"
+    },
+    "toast": {
+      "saveError": "Could not save. Try again."
     }
   }
 }

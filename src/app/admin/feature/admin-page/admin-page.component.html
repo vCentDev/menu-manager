@@ -1,3 +1,4 @@
+<p-toast position="bottom-center" />
 <div class="admin-page">
   <header class="admin-page__header">
     <h1 class="admin-page__title">{{ "admin.title" | translate }}</h1>
@@ -11,40 +12,42 @@
   </header>
 
   <div class="admin-page__sheet">
-    @if (adminService.status() === "loading" || adminService.status() === "idle") {
+    @if (adminStore.status() === "loading" || adminStore.status() === "idle") {
       <div class="admin-page__state">
         <p-progress-spinner [ariaLabel]="'admin.loading' | translate" />
       </div>
-    } @else if (adminService.status() === "error") {
+    } @else if (adminStore.status() === "error") {
       <div class="admin-page__state admin-page__state--error">
         <p-message severity="error" variant="outlined">{{
           "admin.error" | translate
         }}</p-message>
-        <button type="button" pButton (click)="adminService.load()">
+        <button type="button" pButton (click)="adminStore.load()">
           {{ "admin.retry" | translate }}
         </button>
       </div>
-    } @else if (adminService.status() === "ready") {
+    } @else if (adminStore.status() === "ready") {
       <p-tabs value="dishes">
         <p-tablist>
           <p-tab value="dishes">{{ "admin.tabs.dishes" | translate }}</p-tab>
-          <p-tab value="sections">{{ "admin.tabs.sections" | translate }}</p-tab>
+          <p-tab value="sections">{{
+            "admin.tabs.sections" | translate
+          }}</p-tab>
         </p-tablist>
         <p-tabpanels>
           <p-tabpanel value="dishes">
             <app-admin-filters
-              [search]="adminService.searchQuery()"
-              (searchChange)="adminService.setSearch($event)"
-              [sort]="adminService.sortCriteria()"
-              (sortChange)="adminService.setSort($event)"
-              [availability]="adminService.dishAvailability()"
-              (availabilityChange)="adminService.setAvailabilityFilter($event)"
+              [search]="adminStore.searchQuery()"
+              (searchChange)="adminStore.setSearch($event)"
+              [sort]="adminStore.sortCriteria()"
+              (sortChange)="adminStore.setSort($event)"
+              [availability]="adminStore.dishAvailability()"
+              (availabilityChange)="adminStore.setAvailabilityFilter($event)"
               [lang]="languageService.lang()"
             />
 
             @if (
-              adminService.dishRows().length > 0 &&
-              adminService.filteredRows().length === 0
+              adminStore.dishRows().length > 0 &&
+              adminStore.filteredRows().length === 0
             ) {
               <p-message
                 class="admin-page__empty"
@@ -53,7 +56,7 @@
               >
                 {{ "admin.emptyFiltered" | translate }}
               </p-message>
-            } @else if (adminService.groupedSections().length === 0) {
+            } @else if (adminStore.groupedSections().length === 0) {
               <p-message
                 class="admin-page__empty"
                 severity="secondary"
@@ -63,11 +66,12 @@
               </p-message>
             } @else {
               <div class="admin-page__list">
-                @for (
-                  node of adminService.groupedSections();
-                  track node.id
-                ) {
-                  <app-admin-section-group [node]="node" />
+                @for (node of adminStore.groupedSections(); track node.id) {
+                  <app-admin-section-group
+                    (updateAvailability)="onAvailabilityChange($event)"
+                    (updatePrice)="onPriceChange($event)"
+                    [node]="node"
+                  />
                 }
               </div>
             }

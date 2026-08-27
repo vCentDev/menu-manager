@@ -1,4 +1,4 @@
-export { MenuService } from './data/menu.service';
+export { MenuStore } from './data/menu.store';
 export type {
   SectionNode,
   LocalizedDish,

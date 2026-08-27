@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
-import { AdminService } from '@admin/data/admin.service';
+import { AdminStore } from '@admin/data/admin.store';
+import { MessageService } from 'primeng/api';
 
 export const adminRoutes: Routes = [
   {
     path: '',
-    providers: [AdminService],
+    providers: [AdminStore, MessageService],
     loadComponent: () =>
       import('./admin-page/admin-page.component').then(
         (m) => m.AdminPageComponent,

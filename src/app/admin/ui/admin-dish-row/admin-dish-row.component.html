@@ -18,21 +18,29 @@
     <span class="admin-dish-row__label">{{
       "admin.row.price" | translate
     }}</span>
-    <span class="admin-dish-row__price-value">{{
-      centsToEuros(row().priceCents) | currency: "EUR" : "symbol" : "1.2-2"
-    }}</span>
+    <p-inputnumber
+      class="admin-dish-row__price-value"
+      size="small"
+      [(ngModel)]="priceDraft"
+      (onKeyDown)="handlePriceChange($event)"
+      (onBlur)="updatePrice(priceDraft())"
+      (onFocus)="selectPriceText($event)"
+      [min]="0"
+      mode="currency"
+      currency="EUR"
+      locale="es"
+    />
   </div>
 
   <div class="admin-dish-row__availability">
     <span class="admin-dish-row__label">{{
       "admin.row.availability" | translate
     }}</span>
-    <span>{{
-      (row().isAvailable
-        ? "admin.row.available"
-        : "admin.row.unavailable"
-      ) | translate
-    }}</span>
+    <p-toggleswitch
+      [ngModel]="row().isAvailable"
+      (ngModelChange)="availabilityChange.emit($event)"
+      size="small"
+    />
   </div>
 
   <div class="admin-dish-row__actions"></div>

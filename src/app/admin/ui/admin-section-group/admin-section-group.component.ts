@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import type { AdminSectionNode } from '../../util/admin.model';
@@ -13,4 +13,9 @@ import { AdminDishRowComponent } from '../admin-dish-row/admin-dish-row.componen
 export class AdminSectionGroupComponent {
   readonly node = input.required<AdminSectionNode>();
   readonly level = input(0);
+  readonly updateAvailability = output<{
+    id: string;
+    available: boolean;
+  }>();
+  readonly updatePrice = output<{ id: string; price: number }>();
 }

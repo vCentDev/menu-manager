@@ -312,7 +312,7 @@ Dos cosas siguen siendo bilingües y **no** van al JSON:
 
 - **Escrituras multi-tabla:** un plato toca `dishes`, `dish_translations` y `dish_allergens`, y PostgREST no las agrupa en una transacción. Orden acordado: `dishes` → `dish_translations` (upsert) → `dish_allergens` (borrar e insertar). Elegido así para que un fallo a medias deje el plato incompleto pero visible y corregible desde el panel, nunca datos huérfanos. Una RPC transaccional queda como mejora futura.
 - **RLS:** las escrituras exigen `is_admin()`, no solo sesión. El `role` de `profiles` tiene default `viewer`, así que un usuario nuevo pasaría `authGuard` sin poder escribir; de ahí el `adminGuard`. Si aun así una operación falla por permisos, el mensaje debe ser comprensible y no filtrar detalles internos.
-- **Caché de la carta pública:** `MenuService` recarga en `ngOnInit`, así que los cambios se ven al volver a `/`. Si en el futuro se cachea, habrá que invalidar.
+- **Caché de la carta pública:** `MenuStore` recarga en `ngOnInit`, así que los cambios se ven al volver a `/`. Si en el futuro se cachea, habrá que invalidar.
 - **Céntimos:** cualquier redondeo en euros debe hacerse en un único punto del código para evitar desfases.
 - **Secciones sin contenido:** son invisibles en la carta por diseño de `buildMenuTree`; no es un bug.
 - **Idioma al entrar directo a `/admin`:** `LanguageService` debe instanciarse en `admin-page`; si no, ngx-translate se queda en `fallbackLang: 'es'` aunque `localStorage.lang` sea `en` (deuda conocida en login/forbidden, Hito 6).

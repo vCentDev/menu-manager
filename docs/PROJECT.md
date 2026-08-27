@@ -40,7 +40,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 #### Hito 3 — menu/data ✅
 - `MenuClient`, mappers, modelos (`Dish`, `Section`, `Allergen`, `Localized*`, `SectionNode`, `OrderCriteria`)
 
-#### Hito 4 — MenuService (store) ✅
+#### Hito 4 — MenuStore ✅
 - Pipeline: `dishes + lang → localizedDishes → visibleDishes → menuTree`
 - Filtros: búsqueda, exclusión de alérgenos (`Set`), orden por precio **dentro de sección**
 - `status`: idle | loading | ready | error
@@ -84,7 +84,7 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 
 **Entregables previstos:**
 1. Ampliar lazy routes `admin/*` detrás del guard (sustituir stub)
-2. `AdminClient` + store + mappers (patrón como `MenuClient` / `MenuService`)
+2. `AdminClient` + store + mappers (patrón como `MenuClient` / `MenuStore`)
 3. CRUD **secciones**: nombre es/en, jerarquía (`parentId`), `slug` y orden automáticos
 4. CRUD **platos**: precio, sección, traducciones, alérgenos, `imageUrl` opcional, disponibilidad
 5. Interacciones rápidas en la lista: toggle de disponibilidad y precio en línea
@@ -116,11 +116,11 @@ Carta online del restaurante **Menú Casa Mateu**: el cliente consulta platos, p
 
 ## Deuda / mejoras menores conocidas
 
-- Mensaje de error en `MenuService.load()` hardcodeado en ES (`'No se pudo cargar la carta'`) — candidata a i18n o reutilizar `menu.error` en UI.
+- Mensaje de error en `MenuStore.load()` hardcodeado en ES (`'No se pudo cargar la carta'`) — candidata a i18n o reutilizar `menu.error` en UI.
 - No hay carpeta `supabase/` de migraciones en el repo (esquema gestionado fuera).
 - `README.md` aún es plantilla Angular CLI — actualizar cuando convenga.
 - Stub `admin-page` sin estilos dedicados (aceptable hasta Hito 7).
-- Las rutas de `auth/` (`/login`, `/forbidden`) se ven siempre en español aunque `localStorage.lang` sea `en`: `LanguageService` solo se instancia en `menu-page` / `MenuService` (y, en el Hito 7, en `admin-page`). Sin esa instancia, ngx-translate usa `fallbackLang: 'es'`. Preexistente desde el Hito 6.
+- Las rutas de `auth/` (`/login`, `/forbidden`) se ven siempre en español aunque `localStorage.lang` sea `en`: `LanguageService` solo se instancia en `menu-page` / `MenuStore` (y, en el Hito 7, en `admin-page`). Sin esa instancia, ngx-translate usa `fallbackLang: 'es'`. Preexistente desde el Hito 6.
 
 ## Cómo retomar en un chat nuevo
 
