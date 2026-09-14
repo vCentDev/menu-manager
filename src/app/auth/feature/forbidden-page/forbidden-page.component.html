@@ -1,0 +1,30 @@
+<div class="forbidden-page">
+  <div class="forbidden-page__composition">
+    <header class="forbidden-page__brand">
+      <p class="forbidden-page__eyebrow">
+        {{ "auth.forbidden.eyebrow" | translate }}
+      </p>
+      <h1 class="forbidden-page__title">Menú Casa Mateu</h1>
+    </header>
+
+    <section class="forbidden-page__sheet" aria-labelledby="forbidden-heading">
+      <h2 id="forbidden-heading" class="forbidden-page__heading">
+        {{ "auth.forbidden.title" | translate }}
+      </h2>
+
+      <p class="forbidden-page__body">{{ "auth.forbidden.body" | translate }}</p>
+
+      <p-button
+        severity="secondary"
+        [outlined]="true"
+        [label]="'auth.logout' | translate"
+        [fluid]="true"
+        (onClick)="onLogout()"
+      />
+    </section>
+
+    <a class="forbidden-page__back" routerLink="/">{{
+      "auth.login.backToMenu" | translate
+    }}</a>
+  </div>
+</div>

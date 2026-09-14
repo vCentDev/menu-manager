@@ -1,0 +1,44 @@
+<article class="admin-filters">
+  <div class="admin-filters__toolbar">
+    <div class="admin-filters__search">
+      <p-iconfield>
+        <p-inputicon>
+          <svg data-p-icon="search"></svg>
+        </p-inputicon>
+        <input
+          type="text"
+          pInputText
+          [placeholder]="'admin.filters.search' | translate"
+          [(ngModel)]="search"
+          pSize="small"
+        />
+        @if (search()) {
+          <p-inputicon style="cursor: pointer" (click)="search.set('')">
+            <svg data-p-icon="times"></svg>
+          </p-inputicon>
+        }
+      </p-iconfield>
+    </div>
+
+    <div class="admin-filters__controls">
+      <label class="admin-filters__sort">
+        <select
+          [(ngModel)]="sort"
+          [attr.aria-label]="'admin.filters.sortLabel' | translate"
+        >
+          @for (option of sortOptions(); track option.value) {
+            <option [ngValue]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+      <p-selectbutton
+        [options]="availabilityOptions()"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="availability"
+        size="small"
+        [allowEmpty]="false"
+      />
+    </div>
+  </div>
+</article>

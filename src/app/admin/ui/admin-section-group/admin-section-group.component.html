@@ -1,0 +1,34 @@
+<section
+  class="admin-page__group"
+  [class.admin-page__group--nested]="level() > 0"
+>
+  @switch (level()) {
+    @case (0) {
+      <h2 class="admin-page__group-title">{{ node().name }}</h2>
+    }
+    @default {
+      <h3 class="admin-page__group-title">{{ node().name }}</h3>
+    }
+  }
+
+  @for (row of node().dishes; track row.id) {
+    <app-admin-dish-row
+      (availabilityChange)="
+        updateAvailability.emit({ id: row.id, available: $event })
+      "
+      (priceChange)="updatePrice.emit({ id: row.id, price: $event })"
+      [row]="row"
+    />
+  } @empty {
+    <p class="admin-page__group-empty">{{ "admin.groupEmpty" | translate }}</p>
+  }
+
+  @for (child of node().children; track child.id) {
+    <app-admin-section-group
+      [node]="child"
+      [level]="level() + 1"
+      (updateAvailability)="updateAvailability.emit($event)"
+      (updatePrice)="updatePrice.emit($event)"
+    />
+  }
+</section>

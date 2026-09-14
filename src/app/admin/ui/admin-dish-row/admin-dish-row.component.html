@@ -1,0 +1,47 @@
+<article
+  class="admin-dish-row"
+  [class.admin-dish-row--unavailable]="!row().isAvailable"
+>
+  <div class="admin-dish-row__name">
+    <span class="admin-dish-row__title">{{ row().name }}</span>
+    @for (lang of row().missingLanguages; track lang) {
+      <p-tag
+        [value]="
+          'admin.row.missingLang' | translate: { lang: lang.toUpperCase() }
+        "
+        severity="warn"
+      />
+    }
+  </div>
+
+  <div class="admin-dish-row__price">
+    <span class="admin-dish-row__label">{{
+      "admin.row.price" | translate
+    }}</span>
+    <p-inputnumber
+      class="admin-dish-row__price-value"
+      size="small"
+      [(ngModel)]="priceDraft"
+      (onKeyDown)="handlePriceChange($event)"
+      (onBlur)="updatePrice(priceDraft())"
+      (onFocus)="selectPriceText($event)"
+      [min]="0"
+      mode="currency"
+      currency="EUR"
+      locale="es"
+    />
+  </div>
+
+  <div class="admin-dish-row__availability">
+    <span class="admin-dish-row__label">{{
+      "admin.row.availability" | translate
+    }}</span>
+    <p-toggleswitch
+      [ngModel]="row().isAvailable"
+      (ngModelChange)="availabilityChange.emit($event)"
+      size="small"
+    />
+  </div>
+
+  <div class="admin-dish-row__actions"></div>
+</article>

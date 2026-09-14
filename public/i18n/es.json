@@ -39,8 +39,50 @@
       }
     },
     "logout": "Cerrar sesión",
-    "admin": {
-      "placeholder": "Panel de administración"
+    "forbidden": {
+      "eyebrow": "Acceso restringido",
+      "title": "Sin permisos",
+      "body": "Tu cuenta no tiene permisos para gestionar la carta. Pide acceso a un administrador o entra con otra cuenta."
+    }
+  },
+  "admin": {
+    "title": "Gestión de la carta",
+    "loading": "Cargando panel…",
+    "error": "No se pudo cargar el panel",
+    "retry": "Reintentar",
+    "empty": "Todavía no hay platos",
+    "emptyFiltered": "Ningún plato coincide con los filtros",
+    "tabs": {
+      "dishes": "Platos",
+      "sections": "Secciones"
+    },
+    "sectionsPlaceholder": "La gestión de secciones llega en un paso posterior.",
+    "groupEmpty": "Sin platos",
+    "filters": {
+      "search": "Buscar plato",
+      "sortLabel": "Orden",
+      "sort": {
+        "default": "Por defecto",
+        "priceAsc": "Precio ↑",
+        "priceDesc": "Precio ↓",
+        "nameAsc": "Nombre ↑",
+        "nameDesc": "Nombre ↓"
+      },
+      "availability": {
+        "all": "Todos",
+        "available": "Disponibles",
+        "unavailable": "No disponibles"
+      }
+    },
+    "row": {
+      "price": "Precio",
+      "availability": "Disponibilidad",
+      "available": "Disponible",
+      "unavailable": "No disponible",
+      "missingLang": "Falta {{lang}}"
+    },
+    "toast": {
+      "saveError": "No se pudo guardar. Inténtalo de nuevo"
     }
   }
 }

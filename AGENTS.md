@@ -73,20 +73,22 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 **`shared/api.ts`:** `SupabaseService`, `LanguageService`, `LanguageCode`, `provideSharedI18n`
 
-**`menu/api.ts`:** `MenuService`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`
+**`menu/api.ts`:** `MenuStore`, `menuRoutes`, tipos `SectionNode`, `LocalizedDish`, `LocalizedSection`, `OrderCriteria`, `Allergen`, `Dish`, `Section`, `Translation`
 
-**`auth/api.ts`:** `authRoutes`, `authGuard`
+**`auth/api.ts`:** `authRoutes`, `forbiddenRoutes`, `authGuard`, `adminGuard`
 
 **`admin/api.ts`:** `adminRoutes`
 
 ## Routing
 
 - `app.routes.ts` → lazy `menuRoutes` en `''` (home = carta).
-- `/login` → lazy `authRoutes`; `/admin` → `canActivate: [authGuard]` + lazy `adminRoutes`.
+- `/login` → lazy `authRoutes`; `/forbidden` → lazy `forbiddenRoutes`.
+- `/admin` → `canActivate: [authGuard, adminGuard]` + lazy `adminRoutes`.
 
 ## i18n
 
-- **Chrome UI** → `public/i18n/{es,en}.json`, pipe `translate` o `TranslateService.instant()`.
+- **Chrome UI** → `public/i18n/{es,en}.json` (`menu.*`, `filters.*`, `dish.*`, `auth.*`, `admin.*`), pipe `translate` o `TranslateService.instant()`.
+- **Panel admin** → claves `admin.*` (sección propia, no bajo `auth`). `admin-page` inyecta `LanguageService` para que el idioma guardado se aplique al entrar al panel. Logout reutiliza `auth.logout`.
 - **Contenido de carta** → Supabase + localización en `menu/` (**no** ngx-translate).
 - **`LanguageService`** = fuente de verdad (`lang` + `localStorage`); sync con `translate.use()` vía `effect`.
 - **`provideSharedI18n()`** en `shared/data/i18n.providers.ts`; `provideHttpClient()` en `app.config.ts`.
@@ -102,12 +104,12 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 
 | Componente | Rol |
 |------------|-----|
-| `menu-page` | SMART: `MenuService` + `LanguageService` |
+| `menu-page` | SMART: `MenuStore` + `LanguageService` |
 | `menu-filters` | PRESENTATIONAL: `model()` search/sort/lang; I/O allergens |
 | `menu-section` | PRESENTATIONAL recursivo |
 | `dish-card` | PRESENTATIONAL; leader punteado nombre→precio |
 
-**MenuService:** pipeline `dishes + lang → localizedDishes → visibleDishes → menuTree`. Filtros en cliente. Alérgenos = **excluir**. Orden precio **por sección**.
+**MenuStore:** pipeline `dishes + lang → localizedDishes → visibleDishes → menuTree`. Filtros en cliente. Alérgenos = **excluir**. Orden precio **por sección**.
 
 **Layout:** cabecera editorial + hoja (`menu-page__sheet`); banda filtros con `--sheet-padding-inline`.
 
@@ -117,6 +119,8 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 |------------|-----|
 | `login-page` | SMART: form reactive + `SupabaseService`; redirect si ya hay sesión |
 | `authGuard` | `CanActivateFn` async con `getSession()`; `returnUrl` en query |
+| `adminGuard` | `CanActivateFn` async; exige `role = 'admin'` vía `ProfileClient`; deniega si no puede confirmarlo |
+| `forbidden-page` | Pantalla de permisos insuficientes con logout (destino de `adminGuard`) |
 
 **Login:** marca (eyebrow + título) + hoja con formulario; validación i18n por campo; error de credenciales genérico.
 
@@ -126,6 +130,17 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 - `MenuClient`: lectura pública dishes/sections con traducciones.
 - Esquema/RLS en el proyecto Supabase; no hay carpeta `supabase/` en el repo.
 
+## Cómo hablar con el usuario (modo mentor y en general)
+
+El usuario suele trabajar en modo aprendiz / junior. Prioriza claridad sobre precisión académica.
+
+- Respuestas en **español** (salvo que pida otro idioma).
+- Explica con **palabras sencillas** y ejemplos concretos del propio repo. Evita jerga (`DTO`, `contrato de transporte`, `dominio`, `barrel`, `capa`, `view-model`…) salvo que el usuario ya la use; si hace falta un término técnico, defínelo en una frase antes de seguir.
+- Prefiere analogías cortas (“foto fea de la BD” vs “foto limpia de la app”) a definiciones abstractas.
+- En modo mentor: guía **paso a paso**, qué archivo abrir, qué pegar o mirar, y **por qué** en una o dos frases. No sueltes un bloque largo de arquitectura de golpe.
+- Si algo tiene dos nombres (p. ej. `price_cents` en Supabase y `priceCents` en Angular), dilo así, sin etiquetas de capas.
+- Cuando revises código del usuario: empieza por “qué está bien”, luego el fallo o mejora, luego un ejemplo corto.
+
 ## Convenciones de código
 
 - Componentes **standalone**; imports explícitos en `@Component`.
@@ -133,7 +148,6 @@ Actualizar esta lista cuando un dominio exporte algo nuevo vía su `api.ts`.
 - PrimeNG v21: importar piezas concretas, no módulo monolítico.
 - Labels dinámicos (p. ej. sort): claves i18n + `computed` que lea `lang()` + `instant()`.
 - Código en inglés (nombres/tipos); UI vía i18n; comentarios solo si aportan.
-- Respuestas al usuario en **español** salvo que pida otro idioma.
 
 ## Qué NO hacer
 

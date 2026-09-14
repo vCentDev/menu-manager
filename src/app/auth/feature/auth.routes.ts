@@ -9,3 +9,13 @@ export const authRoutes: Routes = [
       ),
   },
 ];
+
+export const forbiddenRoutes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./forbidden-page/forbidden-page.component').then(
+        (m) => m.ForbiddenPageComponent,
+      ),
+  },
+];

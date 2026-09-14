@@ -5,33 +5,33 @@
   </header>
 
   <div class="menu-page__sheet">
-    @if (menuService.status() === "loading" || menuService.status() === "idle") {
+    @if (menuStore.status() === "loading" || menuStore.status() === "idle") {
       <div class="menu-page__state">
         <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />
       </div>
-    } @else if (menuService.status() === "error") {
+    } @else if (menuStore.status() === "error") {
       <div class="menu-page__state menu-page__state--error">
         <p-message severity="error" variant="outlined">{{
-          menuService.error() ?? ("menu.error" | translate)
+          menuStore.error() ?? ("menu.error" | translate)
         }}</p-message>
-        <button (click)="menuService.load()" pButton>
+        <button (click)="menuStore.load()" pButton>
           {{ "menu.retry" | translate }}
         </button>
       </div>
-    } @else if (menuService.status() === "ready") {
+    } @else if (menuStore.status() === "ready") {
       <app-menu-filters
-        [search]="menuService.searchQuery()"
-        (searchChange)="menuService.setSearch($event)"
-        [sort]="menuService.sortCriteria()"
-        (sortChange)="menuService.setSort($event)"
+        [search]="menuStore.searchQuery()"
+        (searchChange)="menuStore.setSearch($event)"
+        [sort]="menuStore.sortCriteria()"
+        (sortChange)="menuStore.setSort($event)"
         [lang]="langService.lang()"
         (langChange)="langService.changeLanguage($event)"
-        [allergens]="menuService.availableAllergens()"
-        [excludedAllergens]="menuService.excludedAllergenCodes()"
-        (allergenToggle)="menuService.toggleAllergen($event)"
-        (clearAllergens)="menuService.clearExcludedAllergens()"
+        [allergens]="menuStore.availableAllergens()"
+        [excludedAllergens]="menuStore.excludedAllergenCodes()"
+        (allergenToggle)="menuStore.toggleAllergen($event)"
+        (clearAllergens)="menuStore.clearExcludedAllergens()"
       />
-      @for (node of menuService.menuTree(); track node.section.id) {
+      @for (node of menuStore.menuTree(); track node.section.id) {
         <app-menu-section [node]="node" [lang]="langService.lang()" />
       } @empty {
         <p-message

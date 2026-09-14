@@ -1,7 +1,89 @@
+<p-toast position="bottom-center" />
 <div class="admin-page">
-  <h1>{{ "auth.admin.placeholder" | translate }}</h1>
+  <header class="admin-page__header">
+    <h1 class="admin-page__title">{{ "admin.title" | translate }}</h1>
 
-  <button type="button" pButton (click)="onLogout()">
-    {{ "auth.logout" | translate }}
-  </button>
+    <p-button
+      severity="secondary"
+      [outlined]="true"
+      [label]="'auth.logout' | translate"
+      (onClick)="onLogout()"
+    />
+  </header>
+
+  <div class="admin-page__sheet">
+    @if (adminStore.status() === "loading" || adminStore.status() === "idle") {
+      <div class="admin-page__state">
+        <p-progress-spinner [ariaLabel]="'admin.loading' | translate" />
+      </div>
+    } @else if (adminStore.status() === "error") {
+      <div class="admin-page__state admin-page__state--error">
+        <p-message severity="error" variant="outlined">{{
+          "admin.error" | translate
+        }}</p-message>
+        <p-button
+          (click)="adminStore.load()"
+          [label]="'admin.retry' | translate"
+        />
+      </div>
+    } @else if (adminStore.status() === "ready") {
+      <p-tabs value="dishes">
+        <p-tablist>
+          <p-tab value="dishes">{{ "admin.tabs.dishes" | translate }}</p-tab>
+          <p-tab value="sections">{{
+            "admin.tabs.sections" | translate
+          }}</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+          <p-tabpanel value="dishes">
+            <app-admin-filters
+              [search]="adminStore.searchQuery()"
+              (searchChange)="adminStore.setSearch($event)"
+              [sort]="adminStore.sortCriteria()"
+              (sortChange)="adminStore.setSort($event)"
+              [availability]="adminStore.dishAvailability()"
+              (availabilityChange)="adminStore.setAvailabilityFilter($event)"
+              [lang]="languageService.lang()"
+            />
+
+            @if (
+              adminStore.dishRows().length > 0 &&
+              adminStore.filteredRows().length === 0
+            ) {
+              <p-message
+                class="admin-page__empty"
+                severity="secondary"
+                variant="outlined"
+              >
+                {{ "admin.emptyFiltered" | translate }}
+              </p-message>
+            } @else if (adminStore.groupedSections().length === 0) {
+              <p-message
+                class="admin-page__empty"
+                severity="secondary"
+                variant="outlined"
+              >
+                {{ "admin.empty" | translate }}
+              </p-message>
+            } @else {
+              <div class="admin-page__list">
+                @for (node of adminStore.groupedSections(); track node.id) {
+                  <app-admin-section-group
+                    (updateAvailability)="onAvailabilityChange($event)"
+                    (updatePrice)="onPriceChange($event)"
+                    [node]="node"
+                  />
+                }
+              </div>
+            }
+          </p-tabpanel>
+          <p-tabpanel value="sections">
+            <p class="admin-page__placeholder">
+              {{ "admin.sectionsPlaceholder" | translate }}
+            </p>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+    }
+  </div>
 </div>

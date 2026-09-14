@@ -39,8 +39,50 @@
       }
     },
     "logout": "Sign out",
-    "admin": {
-      "placeholder": "Admin panel"
+    "forbidden": {
+      "eyebrow": "Restricted access",
+      "title": "No permissions",
+      "body": "Your account cannot manage the menu. Ask an administrator for access or sign in with another account."
+    }
+  },
+  "admin": {
+    "title": "Menu management",
+    "loading": "Loading panel…",
+    "error": "Could not load the panel",
+    "retry": "Retry",
+    "empty": "There are no dishes yet",
+    "emptyFiltered": "No dishes match the filters",
+    "tabs": {
+      "dishes": "Dishes",
+      "sections": "Sections"
+    },
+    "sectionsPlaceholder": "Section management comes in a later step.",
+    "groupEmpty": "No dishes",
+    "filters": {
+      "search": "Search dish",
+      "sortLabel": "Sort",
+      "sort": {
+        "default": "Menu order",
+        "priceAsc": "Price: low to high",
+        "priceDesc": "Price: high to low",
+        "nameAsc": "Name: A–Z",
+        "nameDesc": "Name: Z–A"
+      },
+      "availability": {
+        "all": "All",
+        "available": "Available",
+        "unavailable": "Unavailable"
+      }
+    },
+    "row": {
+      "price": "Price",
+      "availability": "Availability",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "missingLang": "Missing {{lang}}"
+    },
+    "toast": {
+      "saveError": "Could not save. Try again."
     }
   }
 }
