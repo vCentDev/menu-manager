@@ -21,9 +21,10 @@
         <p-message severity="error" variant="outlined">{{
           "admin.error" | translate
         }}</p-message>
-        <button type="button" pButton (click)="adminStore.load()">
-          {{ "admin.retry" | translate }}
-        </button>
+        <p-button
+          (click)="adminStore.load()"
+          [label]="'admin.retry' | translate"
+        />
       </div>
     } @else if (adminStore.status() === "ready") {
       <p-tabs value="dishes">

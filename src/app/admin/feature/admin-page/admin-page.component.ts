@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { ButtonModule } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TabsModule } from 'primeng/tabs';
@@ -18,7 +18,7 @@ import { AdminSectionGroupComponent } from '../../ui/admin-section-group/admin-s
   selector: 'app-admin-page',
   imports: [
     TranslatePipe,
-    ButtonModule,
+    Button,
     MessageModule,
     ProgressSpinnerModule,
     TabsModule,
