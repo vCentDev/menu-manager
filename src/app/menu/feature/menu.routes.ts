@@ -4,8 +4,8 @@ export const menuRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('@menu/feature/menu-page/menu-page.component').then(
-        (m) => m.MenuPageComponent,
+      import('@menu/feature/menu-page/menu-page').then(
+        (m) => m.MenuPage,
       ),
   },
 ];

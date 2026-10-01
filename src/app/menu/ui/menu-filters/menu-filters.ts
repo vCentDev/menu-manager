@@ -34,10 +34,10 @@ import { localizeAllergen } from '../../util/menu-localization';
     FormsModule,
     TranslatePipe,
   ],
-  templateUrl: './menu-filters.component.html',
-  styleUrl: './menu-filters.component.css',
+  templateUrl: './menu-filters.html',
+  styleUrl: './menu-filters.css',
 })
-export class MenuFiltersComponent {
+export class MenuFilters {
   private readonly translate = inject(TranslateService);
   protected readonly localizeAllergen = localizeAllergen;
 

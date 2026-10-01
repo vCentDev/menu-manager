@@ -10,10 +10,10 @@ import { localizeAllergen } from '@menu/util/menu-localization';
 @Component({
   selector: 'app-dish-card',
   imports: [CurrencyPipe, BadgeModule, TranslatePipe],
-  templateUrl: './dish-card.component.html',
-  styleUrl: './dish-card.component.css',
+  templateUrl: './dish-card.html',
+  styleUrl: './dish-card.css',
 })
-export class DishCardComponent {
+export class DishCard {
   protected readonly localizeAllergen = localizeAllergen;
 
   readonly dish = input.required<LocalizedDish>();

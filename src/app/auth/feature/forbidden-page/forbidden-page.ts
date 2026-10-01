@@ -9,10 +9,10 @@ import { SupabaseService } from '@shared/api';
 @Component({
   selector: 'app-forbidden-page',
   imports: [RouterLink, TranslatePipe, ButtonModule],
-  templateUrl: './forbidden-page.component.html',
-  styleUrl: './forbidden-page.component.css',
+  templateUrl: './forbidden-page.html',
+  styleUrl: './forbidden-page.css',
 })
-export class ForbiddenPageComponent {
+export class ForbiddenPage {
   private readonly supabase = inject(SupabaseService);
   private readonly router = inject(Router);
 

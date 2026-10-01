@@ -27,10 +27,10 @@ import type {
     SelectButtonModule,
     TranslatePipe,
   ],
-  templateUrl: './admin-filters.component.html',
-  styleUrl: './admin-filters.component.css',
+  templateUrl: './admin-filters.html',
+  styleUrl: './admin-filters.css',
 })
-export class AdminFiltersComponent {
+export class AdminFilters {
   private readonly translate = inject(TranslateService);
 
   readonly search = model('');

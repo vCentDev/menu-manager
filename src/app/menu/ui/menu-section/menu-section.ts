@@ -1,15 +1,15 @@
 import { Component, input } from '@angular/core';
 
 import { SectionNode } from '@menu/util/menu.model';
-import { DishCardComponent } from '../dish-card/dish-card.component';
+import { DishCard } from '../dish-card/dish-card';
 
 @Component({
   selector: 'app-menu-section',
-  imports: [DishCardComponent],
-  templateUrl: './menu-section.component.html',
-  styleUrl: './menu-section.component.css',
+  imports: [DishCard],
+  templateUrl: './menu-section.html',
+  styleUrl: './menu-section.css',
 })
-export class MenuSectionComponent {
+export class MenuSection {
   readonly node = input.required<SectionNode>();
   readonly level = input(0);
   readonly lang = input<'en' | 'es'>('es');

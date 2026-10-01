@@ -6,7 +6,7 @@ import { TagModule } from 'primeng/tag';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
-import type { AdminDishRow } from '../../util/admin.model';
+import type { AdminDishRow as DishRow } from '../../util/admin.model';
 import { centsToEuros } from '../../util/price';
 
 @Component({
@@ -18,11 +18,11 @@ import { centsToEuros } from '../../util/price';
     InputNumberModule,
     ToggleSwitchModule,
   ],
-  templateUrl: './admin-dish-row.component.html',
-  styleUrl: './admin-dish-row.component.css',
+  templateUrl: './admin-dish-row.html',
+  styleUrl: './admin-dish-row.css',
 })
-export class AdminDishRowComponent {
-  readonly row = input.required<AdminDishRow>();
+export class AdminDishRow {
+  readonly row = input.required<DishRow>();
   readonly availabilityChange = output<boolean>();
   readonly priceChange = output<number>();
   readonly priceDraft = linkedSignal(() => centsToEuros(this.row().priceCents));

@@ -7,8 +7,8 @@ export const adminRoutes: Routes = [
     path: '',
     providers: [AdminStore, MessageService],
     loadComponent: () =>
-      import('./admin-page/admin-page.component').then(
-        (m) => m.AdminPageComponent,
+      import('./admin-page/admin-page').then(
+        (m) => m.AdminPage,
       ),
   },
 ];

@@ -7,8 +7,8 @@ import { ButtonModule } from 'primeng/button';
 
 import { MenuStore } from '@menu/data/menu.store';
 import { LanguageService } from '@app/shared/api';
-import { MenuSectionComponent } from '@app/menu/ui/menu-section/menu-section.component';
-import { MenuFiltersComponent } from '@app/menu/ui/menu-filters/menu-filters.component';
+import { MenuSection } from '@app/menu/ui/menu-section/menu-section';
+import { MenuFilters } from '@app/menu/ui/menu-filters/menu-filters';
 
 @Component({
   selector: 'app-menu-page',
@@ -16,14 +16,14 @@ import { MenuFiltersComponent } from '@app/menu/ui/menu-filters/menu-filters.com
     ProgressSpinnerModule,
     MessageModule,
     ButtonModule,
-    MenuSectionComponent,
-    MenuFiltersComponent,
+    MenuSection,
+    MenuFilters,
     TranslatePipe,
   ],
-  templateUrl: './menu-page.component.html',
-  styleUrl: './menu-page.component.css',
+  templateUrl: './menu-page.html',
+  styleUrl: './menu-page.css',
 })
-export class MenuPageComponent implements OnInit {
+export class MenuPage implements OnInit {
   protected readonly menuStore = inject(MenuStore);
   protected readonly langService = inject(LanguageService);
 

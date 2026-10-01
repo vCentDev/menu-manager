@@ -11,8 +11,8 @@ import { MessageService } from 'primeng/api';
 
 import { LanguageService, SupabaseService } from '@shared/api';
 import { AdminStore } from '../../data/admin.store';
-import { AdminFiltersComponent } from '../../ui/admin-filters/admin-filters.component';
-import { AdminSectionGroupComponent } from '../../ui/admin-section-group/admin-section-group.component';
+import { AdminFilters } from '../../ui/admin-filters/admin-filters';
+import { AdminSectionGroup } from '../../ui/admin-section-group/admin-section-group';
 
 @Component({
   selector: 'app-admin-page',
@@ -22,14 +22,14 @@ import { AdminSectionGroupComponent } from '../../ui/admin-section-group/admin-s
     MessageModule,
     ProgressSpinnerModule,
     TabsModule,
-    AdminFiltersComponent,
-    AdminSectionGroupComponent,
+    AdminFilters,
+    AdminSectionGroup,
     ToastModule,
   ],
-  templateUrl: './admin-page.component.html',
-  styleUrl: './admin-page.component.css',
+  templateUrl: './admin-page.html',
+  styleUrl: './admin-page.css',
 })
-export class AdminPageComponent implements OnInit {
+export class AdminPage implements OnInit {
   private readonly supabase = inject(SupabaseService);
   private readonly router = inject(Router);
   protected readonly adminStore = inject(AdminStore);

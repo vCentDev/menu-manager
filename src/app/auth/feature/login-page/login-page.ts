@@ -21,10 +21,10 @@ import { SupabaseService } from '@shared/api';
     ButtonModule,
     MessageModule,
   ],
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css',
+  templateUrl: './login-page.html',
+  styleUrl: './login-page.css',
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPage implements OnInit {
   private readonly supabase = inject(SupabaseService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
