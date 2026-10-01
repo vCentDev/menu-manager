@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = async (_route, state) => {
   const router = inject(Router);
 
   const session = await supabase.getSession();
-
+  // TODO: Eliminar linea 14-18 (Creo que este código es redundante ya que es responsabilidad de authGuard y ya está configurado también en la ruta)
   if (!session) {
     return router.createUrlTree(['/login'], {
       queryParams: { returnUrl: state.url },
