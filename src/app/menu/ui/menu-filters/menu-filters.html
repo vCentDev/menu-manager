@@ -15,15 +15,7 @@
       </p-iconfield>
     </div>
 
-    <div class="filters__controls">
-      <p-selectbutton
-        [options]="sortOptions()"
-        optionLabel="label"
-        optionValue="value"
-        [(ngModel)]="sort"
-        size="small"
-      >
-      </p-selectbutton>
+    <div class="filters__lang">
       <p-selectbutton
         [options]="langOptions"
         optionValue="value"
@@ -37,36 +29,34 @@
 
   <div class="filters__allergens">
     @if (allergens().length > 0) {
-      <p class="filters__allergens-label">
-        {{ "filters.allergens" | translate }}
-      </p>
+    <p class="filters__allergens-label">
+      {{ "filters.allergens" | translate }}
+    </p>
 
-      <div class="filters__allergens-list">
-        @for (allergen of allergens(); track allergen.code) {
-          <p-button
-            [label]="localizeAllergen(allergen, lang())"
-            [outlined]="!excludedAllergens().has(allergen.code)"
-            [rounded]="true"
-            size="small"
-            (onClick)="allergenToggle.emit(allergen.code)"
-          />
-        }
-
-        @if (excludedAllergens().size > 0) {
-          <button
-            pButton
-            iconOnly
-            rounded
-            severity="danger"
-            size="small"
-            [attr.aria-label]="'filters.clearAllergens' | translate"
-            [title]="'filters.clearAllergens' | translate"
-            (click)="clearAllergens.emit()"
-          >
-            <svg data-p-icon="times"></svg>
-          </button>
-        }
-      </div>
+    <div class="filters__allergens-list">
+      @for (allergen of allergens(); track allergen.code) {
+      <p-button
+        [label]="localizeAllergen(allergen, lang())"
+        [outlined]="!excludedAllergens().has(allergen.code)"
+        [rounded]="true"
+        size="small"
+        (onClick)="allergenToggle.emit(allergen.code)"
+      />
+      } @if (excludedAllergens().size > 0) {
+      <button
+        pButton
+        iconOnly
+        rounded
+        severity="danger"
+        size="small"
+        [attr.aria-label]="'filters.clearAllergens' | translate"
+        [title]="'filters.clearAllergens' | translate"
+        (click)="clearAllergens.emit()"
+      >
+        <svg data-p-icon="times"></svg>
+      </button>
+      }
+    </div>
     }
   </div>
 </article>

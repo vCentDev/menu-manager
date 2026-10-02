@@ -6,42 +6,35 @@
 
   <div class="menu-page__sheet">
     @if (menuStore.status() === "loading" || menuStore.status() === "idle") {
-      <div class="menu-page__state">
-        <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />
-      </div>
+    <div class="menu-page__state">
+      <p-progress-spinner [ariaLabel]="'menu.loading' | translate" />
+    </div>
     } @else if (menuStore.status() === "error") {
-      <div class="menu-page__state menu-page__state--error">
-        <p-message severity="error" variant="outlined">{{
-          menuStore.error() ?? ("menu.error" | translate)
-        }}</p-message>
-        <button (click)="menuStore.load()" pButton>
-          {{ "menu.retry" | translate }}
-        </button>
-      </div>
+    <div class="menu-page__state menu-page__state--error">
+      <p-message severity="error" variant="outlined"
+        >{{ menuStore.error() ?? ("menu.error" | translate) }}</p-message
+      >
+      <button (click)="menuStore.load()" pButton>
+        {{ "menu.retry" | translate }}
+      </button>
+    </div>
     } @else if (menuStore.status() === "ready") {
-      <app-menu-filters
-        [search]="menuStore.searchQuery()"
-        (searchChange)="menuStore.setSearch($event)"
-        [sort]="menuStore.sortCriteria()"
-        (sortChange)="menuStore.setSort($event)"
-        [lang]="langService.lang()"
-        (langChange)="langService.changeLanguage($event)"
-        [allergens]="menuStore.availableAllergens()"
-        [excludedAllergens]="menuStore.excludedAllergenCodes()"
-        (allergenToggle)="menuStore.toggleAllergen($event)"
-        (clearAllergens)="menuStore.clearExcludedAllergens()"
-      />
-      @for (node of menuStore.menuTree(); track node.section.id) {
-        <app-menu-section [node]="node" [lang]="langService.lang()" />
-      } @empty {
-        <p-message
-          class="menu-page__empty"
-          severity="secondary"
-          variant="outlined"
-        >
-          {{ "menu.empty" | translate }}
-        </p-message>
-      }
-    }
+    <app-menu-filters
+      [search]="menuStore.searchQuery()"
+      (searchChange)="menuStore.setSearch($event)"
+      [lang]="langService.lang()"
+      (langChange)="langService.changeLanguage($event)"
+      [allergens]="menuStore.availableAllergens()"
+      [excludedAllergens]="menuStore.excludedAllergenCodes()"
+      (allergenToggle)="menuStore.toggleAllergen($event)"
+      (clearAllergens)="menuStore.clearExcludedAllergens()"
+    />
+    @for (node of menuStore.menuTree(); track node.section.id) {
+    <app-menu-section [node]="node" [lang]="langService.lang()" />
+    } @empty {
+    <p-message class="menu-page__empty" severity="secondary" variant="outlined">
+      {{ "menu.empty" | translate }}
+    </p-message>
+    } }
   </div>
 </div>
