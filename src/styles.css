@@ -36,6 +36,12 @@ h1 {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /** TYPOGRAPHY */
 
 /* dm-sans-regular - latin */

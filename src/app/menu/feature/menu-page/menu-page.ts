@@ -9,10 +9,12 @@ import { MenuStore } from '@menu/data/menu.store';
 import { LanguageService } from '@app/shared/api';
 import { MenuSection } from '@app/menu/ui/menu-section/menu-section';
 import { MenuFilters } from '@app/menu/ui/menu-filters/menu-filters';
+import { MenuAnchors } from '@menu/ui/menu-anchors/menu-anchors';
 
 @Component({
   selector: 'app-menu-page',
   imports: [
+    MenuAnchors,
     ProgressSpinnerModule,
     MessageModule,
     ButtonModule,

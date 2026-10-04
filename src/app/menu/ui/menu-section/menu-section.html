@@ -1,27 +1,23 @@
-<div class="section" [class.section--nested]="level() > 0">
-  @switch (level()) {
-    @case (0) {
-      <h2 class="section__title">{{ node().section.name }}</h2>
+<div
+  class="section"
+  [id]="node().section.slug"
+  [class.section--nested]="level() > 0"
+>
+  @switch (level()) { @case (0) {
+  <h2 class="section__title">{{ node().section.name }}</h2>
+  } @case (1) {
+  <h3 class="section__title">{{ node().section.name }}</h3>
+  } @case (2) {
+  <h4 class="section__title">{{ node().section.name }}</h4>
+  } @default {
+  <h4 class="section__title">{{ node().section.name }}</h4>
+  } } @if (node().dishes.length > 0) {
+  <div class="section__dishes">
+    @for (dish of node().dishes; track dish.id) {
+    <app-dish-card [dish]="dish" [lang]="lang()" />
     }
-    @case (1) {
-      <h3 class="section__title">{{ node().section.name }}</h3>
-    }
-    @case (2) {
-      <h4 class="section__title">{{ node().section.name }}</h4>
-    }
-    @default {
-      <h4 class="section__title">{{ node().section.name }}</h4>
-    }
-  }
-  @if (node().dishes.length > 0) {
-    <div class="section__dishes">
-      @for (dish of node().dishes; track dish.id) {
-        <app-dish-card [dish]="dish" [lang]="lang()" />
-      }
-    </div>
-  }
-
-  @for (child of node().children; track child.section.id) {
-    <app-menu-section [node]="child" [level]="level() + 1" [lang]="lang()" />
+  </div>
+  } @for (child of node().children; track child.section.id) {
+  <app-menu-section [node]="child" [level]="level() + 1" [lang]="lang()" />
   }
 </div>

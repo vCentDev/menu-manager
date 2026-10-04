@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.menu-anchors {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  justify-content: safe center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(-1 * var(--sheet-padding-inline, 0px));
+  padding: 0.75rem var(--sheet-padding-inline, 0px);
+  background-color: var(--p-surface-0);
+  border-block-end: 1px solid var(--p-content-border-color);
+}
+
+.menu-anchors::-webkit-scrollbar {
+  display: none;
+}
+.menu-anchors a {
+  flex: none; /* que el chip no se encoja ni se parta en dos líneas */
+  text-decoration: none;
+  border-radius: 999px;
+  /* Colores del chip de PrimeNG, ajustados con sus variables */
+  --p-chip-background: var(--p-surface-100);
+  --p-chip-color: var(--p-text-color);
+}
+.menu-anchors a:hover,
+.menu-anchors a.is-active {
+  --p-chip-background: var(--p-surface-200);
+}
+.menu-anchors a:focus-visible {
+  outline: 2px solid var(--p-primary-color);
+  outline-offset: 2px;
+}

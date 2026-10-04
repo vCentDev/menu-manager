@@ -29,6 +29,7 @@
       (allergenToggle)="menuStore.toggleAllergen($event)"
       (clearAllergens)="menuStore.clearExcludedAllergens()"
     />
+    <app-menu-anchors [sections]="menuStore.rootSections()" />
     @for (node of menuStore.menuTree(); track node.section.id) {
     <app-menu-section [node]="node" [lang]="langService.lang()" />
     } @empty {

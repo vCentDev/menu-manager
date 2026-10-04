@@ -1,0 +1,13 @@
+@if (sections().length > 0) {
+  <nav #nav class="menu-anchors">
+    @for (section of sections(); track section.id) {
+      <a
+        [href]="'#' + section.slug"
+        [class.is-active]="section.slug === activeSlug()"
+        [attr.aria-current]="section.slug === activeSlug() ? 'location' : null"
+      >
+        <p-chip [label]="section.name" />
+      </a>
+    }
+  </nav>
+}

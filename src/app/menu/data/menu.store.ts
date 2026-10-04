@@ -8,7 +8,7 @@ import type {
   OrderCriteria,
   Section,
 } from '@menu/util/menu.model';
-import { localizeDish } from '@menu/util/menu-localization';
+import { localizeDish, localizeSection } from '@menu/util/menu-localization';
 import { matchesSearch } from '@menu/util/normalize-text';
 import { buildMenuTree } from '@menu/util/menu-tree';
 
@@ -50,6 +50,10 @@ export class MenuStore {
       this.languageService.lang(),
       this.sortCriteria(),
     ),
+  );
+
+  readonly rootSections = computed(() =>
+    this.menuTree().map((node) => node.section),
   );
 
   readonly availableDishes = computed(() => {
