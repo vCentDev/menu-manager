@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -14,6 +15,7 @@ import { MenuAnchors } from '@menu/ui/menu-anchors/menu-anchors';
 @Component({
   selector: 'app-menu-page',
   imports: [
+    NgOptimizedImage,
     MenuAnchors,
     ProgressSpinnerModule,
     MessageModule,
