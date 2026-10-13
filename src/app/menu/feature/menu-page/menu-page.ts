@@ -29,7 +29,7 @@ export class MenuPage implements OnInit {
   protected readonly menuStore = inject(MenuStore);
   protected readonly langService = inject(LanguageService);
 
-  protected readonly title = signal('Menú Casa Mateu');
+  protected readonly title = signal('Restaurant Mateu');
 
   async ngOnInit(): Promise<void> {
     await this.menuStore.load();
