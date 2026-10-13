@@ -1,12 +1,13 @@
-import { Component, inject, input, model, output } from '@angular/core';
+import { Component, computed, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputIconModule } from 'primeng/inputicon';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'primeng/popover';
 import { Times } from '@primeicons/angular/times';
 import { Search } from '@primeicons/angular/search';
 
@@ -21,6 +22,7 @@ import { localizeAllergen } from '../../util/menu-localization';
     InputTextModule,
     SelectButtonModule,
     ButtonModule,
+    PopoverModule,
     Search,
     Times,
     FormsModule,
@@ -30,7 +32,6 @@ import { localizeAllergen } from '../../util/menu-localization';
   styleUrl: './menu-filters.css',
 })
 export class MenuFilters {
-  private readonly translate = inject(TranslateService);
   protected readonly localizeAllergen = localizeAllergen;
 
   protected readonly langOptions = [
@@ -40,6 +41,11 @@ export class MenuFilters {
 
   readonly allergens = input.required<Allergen[]>();
   readonly excludedAllergens = input<Set<string>>(new Set());
+  protected readonly excludedBadge = computed(() =>
+    this.excludedAllergens().size > 0
+      ? this.excludedAllergens().size.toString()
+      : '',
+  );
 
   readonly search = model('');
   readonly lang = model<'es' | 'en'>('es');
